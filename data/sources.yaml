@@ -1,0 +1,18 @@
+sources:
+  - id: sgb_v
+    file_name: SGB_5.pdf
+    category: law
+    topic: krankenversicherung
+    source: gesetze-im-internet
+
+  - id: sgb_xi
+    file_name: SGB_11.pdf
+    category: law
+    topic: pflegeversicherung
+    source: gesetze-im-internet
+
+  - id: pueg_refe
+    file_name: PEUG_RefE_Pflegereform_bf.pdf
+    category: law
+    topic: pflegereform
+    source: gesetze-im-internet
