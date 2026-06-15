@@ -1,0 +1,67 @@
+name: lexcare-ai
+
+channels:
+  - conda-forge
+
+dependencies:
+  # Python
+  - python=3.12
+
+  # Jupyter / Notebooks
+  - jupyterlab
+  - notebook
+  - ipykernel
+
+  # Data Processing
+  - pandas
+  - numpy
+  - pydantic
+  - python-dotenv
+
+  # API
+  - fastapi
+  - uvicorn
+
+  # Testing
+  - pytest
+  - pytest-cov
+
+  # Development
+  - black
+  - isort
+  - mypy
+  - pre-commit
+
+  # PDF Processing
+  - pypdf
+
+  # Pip dependencies
+  - pip
+
+  - pip:
+      # LangChain
+      - langchain
+      - langchain-community
+      - langchain-openai
+
+      # Vector DB
+      - chromadb
+
+      # Embeddings / Tokenization
+      - tiktoken
+
+      # Multipart Uploads (FastAPI)
+      - python-multipart
+
+      # HTTP Clients
+      - httpx
+      - requests
+
+      # Logging
+      - structlog
+
+      # Optional RAG Evaluation
+      - ragas
+
+      # OpenAI SDK
+      - openai
