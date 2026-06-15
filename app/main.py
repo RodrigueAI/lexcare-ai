@@ -1,16 +1,11 @@
 from contextlib import asynccontextmanager
 import logging
 import os
-from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-try:
-    from app.api.routes import router as api_router
-except ImportError:
-    api_router = None
-
+from app.api.routes import router as api_router
 
 logger = logging.getLogger("lexcare-ai")
 
@@ -28,6 +23,9 @@ def create_app() -> FastAPI:
         description="RAG-based assistant for healthcare regulations, legislation, and policy updates.",
         version="0.1.0",
         lifespan=lifespan,
+        docs_url=None,
+        redoc_url="/redoc",
+        openapi_url="/openapi.json",
     )
 
     cors_origins = os.getenv("CORS_ORIGINS", "*")
@@ -41,21 +39,15 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    if api_router is not None:
-        app.include_router(api_router, prefix="/api", tags=["API"])
+    app.include_router(api_router, prefix="/api")
 
     @app.get("/", summary="Root endpoint")
     async def root() -> dict[str, str]:
-        return {
-            "message": "LexCare AI is running",
-            "status": "ok",
-        }
+        return {"message": "LexCare AI is running", "status": "ok"}
 
     @app.get("/health", summary="Health check")
     async def health() -> dict[str, str]:
-        return {
-            "status": "healthy",
-        }
+        return {"status": "healthy"}
 
     return app
 
