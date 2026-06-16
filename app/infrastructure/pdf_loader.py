@@ -1,16 +1,9 @@
 # app/infrastructure/pdf_loader.py
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 from pypdf import PdfReader
 
-
-@dataclass
-class LoadedDocument:
-    source_path: str
-    text: str
-    metadata: dict[str, Any]
+from app.domain.models import LoadedDocument
 
 
 class PDFLoader:

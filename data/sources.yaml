@@ -1,3 +1,4 @@
+# data/source.yaml
 sources:
   - id: sgb_v
     file_name: SGB_5.pdf
