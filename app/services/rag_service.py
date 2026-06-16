@@ -1,3 +1,4 @@
+# app/services/rag_service.py
 from app.api.schemas import QueryResponse, SourceItem
 
 
