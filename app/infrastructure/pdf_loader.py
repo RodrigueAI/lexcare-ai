@@ -1,13 +1,21 @@
-# app/infrastructure/pdf_loader.py
+from datetime import datetime, timezone
 from pathlib import Path
 
 from pypdf import PdfReader
 
-from app.domain.models import LoadedDocument
+from app.domain.models import DocumentMetadata, LoadedDocument
 
 
 class PDFLoader:
-    def load(self, file_path: str) -> LoadedDocument:
+    def load(
+        self,
+        file_path: str,
+        *,
+        source: str,
+        document_type: str,
+        topic: str,
+        created_at: datetime | None = None,
+    ) -> LoadedDocument:
         path = Path(file_path)
 
         if not path.exists():
@@ -32,16 +40,23 @@ class PDFLoader:
 
         full_text = "\n\n".join(pages_text).strip()
 
-        metadata = {
+        pdf_metadata = {
             "filename": path.name,
             "file_size_bytes": path.stat().st_size,
             "page_count": len(reader.pages),
             "pdf_metadata": dict(reader.metadata or {}),
         }
 
+        metadata = DocumentMetadata(
+            source=source,
+            document_type=document_type,
+            topic=topic,
+            created_at=created_at or datetime.now(timezone.utc),
+            extra=pdf_metadata,
+        )
+
         return LoadedDocument(
             source_path=str(path),
             text=full_text,
             metadata=metadata,
         )
-        

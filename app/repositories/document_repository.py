@@ -55,26 +55,13 @@ class FileDocumentRepository(DocumentRepository):
             raise FileNotFoundError(f"Document not found: {document_id}")
 
         data = json.loads(path.read_text(encoding="utf-8"))
-
-        return StoredDocument(
-            document_id=data["document_id"],
-            source_path=data["source_path"],
-            text=data["text"],
-            metadata=data["metadata"],
-        )
+        return StoredDocument.from_dict(data)
 
     def list_documents(self) -> list[StoredDocument]:
         documents: list[StoredDocument] = []
 
         for path in sorted(self.storage_dir.glob("*.json")):
             data = json.loads(path.read_text(encoding="utf-8"))
-            documents.append(
-                StoredDocument(
-                    document_id=data["document_id"],
-                    source_path=data["source_path"],
-                    text=data["text"],
-                    metadata=data["metadata"],
-                )
-            )
+            documents.append(StoredDocument.from_dict(data))
 
         return documents
