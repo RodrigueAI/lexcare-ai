@@ -17,7 +17,7 @@ class RAGService:
             question=question,
             answer=(
                 "This is a placeholder response from the RAG service. "
-                "The retrieval and generation pipeline will be connected here next."
+                "The retrieval and generation pipeline will be connected next."
             ),
             sources=sources[:top_k],
         )

@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          auto-activate-base: false
+          activate-environment: lexcare-ai
+          environment-file: environment.yml
+          python-version: "3.12"
+          channels: conda-forge
+          channel-priority: strict
+          cache-environment: true
+          cache-downloads: true
+
+      - name: Install project in editable mode
+        run: |
+          pip install -e .
+
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      - name: Format check
+        run: |
+          black --check .
+          isort --check-only .
+
+      - name: Lint
+        run: |
+          ruff check .
+          mypy .
+
+      - name: Tests
+        run: |
+          pytest --cov --cov-report=term-missing

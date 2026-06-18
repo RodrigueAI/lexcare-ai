@@ -167,3 +167,4 @@ credentials/
 service-account.json
 *.pem
 *.key
+/notebooks/data/processed/documents/*.json

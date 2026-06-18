@@ -24,12 +24,12 @@ class Settings(BaseSettings):
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     cors_origins: str = Field(default="*", alias="CORS_ORIGINS")
 
-    openai_api_key: SecretStr | None = Field(default=None, alias="OPENAI_API_KEY")
-    openai_api_base: str | None = Field(default=None, alias="OPENAI_API_BASE")
-    openai_api_version: str | None = Field(default=None, alias="OPENAI_API_VERSION")
-    openai_deployment_name: str | None = Field(default=None, alias="OPENAI_DEPLOYMENT_NAME")
-    openai_api_type: str | None = Field(default=None, alias="OPENAI_API_TYPE")
-    openai_embeddings_name: str | None = Field(default=None, alias="OPENAI_EMBEDDINGS_NAME")
+    azure_openai_endpoint: str | None = Field(default=None, alias="AZURE_OPENAI_ENDPOINT")
+    azure_openai_api_version: str | None = Field(default=None, alias="AZURE_OPENAI_API_VERSION")
+    azure_openai_deployment_name: str | None = Field(default=None, alias="AZURE_OPENAI_DEPLOYMENT_NAME")
+    azure_openai_embeddings_name: str | None = Field(default=None, alias="AZURE_OPENAI_EMBEDDINGS_NAME")
+    azure_openai_api_type: str | None = Field(default="azure", alias="AZURE_OPENAI_API_TYPE")
+    azure_openai_api_key: SecretStr | None = Field(default=None, alias="AZURE_OPENAI_API_KEY")
 
     embedding_model: str = Field(default="text-embedding-3-small", alias="EMBEDDING_MODEL")
     chat_model: str = Field(default="gpt-4.1-mini", alias="CHAT_MODEL")
