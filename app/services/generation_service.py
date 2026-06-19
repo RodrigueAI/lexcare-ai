@@ -7,7 +7,7 @@ from langchain_openai import AzureChatOpenAI
 
 from app.core.config import Settings, get_settings
 from app.domain.models import DocumentChunk, GeneratedAnswer
-from app.prompts import RAG_PROMPT
+from app.prompts.rag_prompt import RAG_PROMPT
 
 
 class GenerationService:
@@ -22,14 +22,9 @@ class GenerationService:
         if not self.settings.azure_openai_api_version:
             raise ValueError("AZURE_OPENAI_API_VERSION is required for Azure OpenAI.")
 
-        deployment = (
-            self.settings.azure_openai_chat_deployment_name
-            or self.settings.azure_openai_deployment_name
-        )
+        deployment = self.settings.azure_openai_deployment_name
         if not deployment:
-            raise ValueError(
-                "AZURE_OPENAI_CHAT_DEPLOYMENT_NAME or AZURE_OPENAI_DEPLOYMENT_NAME is required for Azure OpenAI."
-            )
+            raise ValueError("AZURE_OPENAI_DEPLOYMENT_NAME is required for Azure OpenAI.")
 
         if self.settings.azure_openai_api_key is None:
             raise ValueError("AZURE_OPENAI_API_KEY is required for Azure OpenAI.")

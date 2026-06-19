@@ -1,3 +1,4 @@
+# app/domain/models.py
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -116,3 +117,10 @@ class DocumentChunk:
             text=data["text"],
             metadata=DocumentMetadata.from_dict(data["metadata"]),
         )
+
+
+@dataclass(frozen=True)
+class GeneratedAnswer:
+    question: str
+    answer: str
+    sources: list[dict[str, Any]] = field(default_factory=list)
