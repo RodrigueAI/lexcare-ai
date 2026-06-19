@@ -1,7 +1,7 @@
-# app/services/embedding_service.py
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import Any
 
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 
@@ -14,10 +14,10 @@ class EmbeddingService:
         self._embeddings = self._build_embeddings()
 
     @property
-    def embedding_function(self):
+    def embedding_function(self) -> Any:
         return self._embeddings
 
-    def _build_embeddings(self):
+    def _build_embeddings(self) -> AzureOpenAIEmbeddings | OpenAIEmbeddings:
         is_azure = (self.settings.azure_openai_api_type or "").lower() == "azure"
         if is_azure:
             if not self.settings.azure_openai_endpoint:
@@ -36,11 +36,7 @@ class EmbeddingService:
                     "AZURE_OPENAI_EMBEDDINGS_NAME or AZURE_OPENAI_DEPLOYMENT_NAME is required for Azure OpenAI."
                 )
 
-            api_key = (
-                self.settings.azure_openai_api_key.get_secret_value()
-                if self.settings.azure_openai_api_key
-                else None
-            )
+            api_key = self.settings.azure_openai_api_key
             if not api_key:
                 raise ValueError("AZURE_OPENAI_API_KEY is required for Azure OpenAI.")
 
@@ -51,12 +47,7 @@ class EmbeddingService:
                 api_version=self.settings.azure_openai_api_version,
             )
 
-        api_key = (
-            self.settings.openai_api_key.get_secret_value()
-            if self.settings.openai_api_key
-            else None
-        )
-
+        api_key = self.settings.openai_api_key
         if not api_key:
             raise ValueError("OPENAI_API_KEY is required.")
 
