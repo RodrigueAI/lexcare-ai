@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from dataclasses import dataclass, field
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -10,7 +10,7 @@ class DocumentMetadata:
     source: str
     document_type: str
     topic: str
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     extra: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -23,12 +23,12 @@ class DocumentMetadata:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "DocumentMetadata":
+    def from_dict(cls, data: dict[str, Any]) -> DocumentMetadata:
         created_at_raw = data.get("created_at")
         created_at = (
             datetime.fromisoformat(created_at_raw)
             if isinstance(created_at_raw, str)
-            else datetime.now(timezone.utc)
+            else datetime.now(UTC)
         )
 
         return cls(
@@ -54,7 +54,7 @@ class LoadedDocument:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "LoadedDocument":
+    def from_dict(cls, data: dict[str, Any]) -> LoadedDocument:
         return cls(
             source_path=data["source_path"],
             text=data["text"],
@@ -78,7 +78,7 @@ class StoredDocument:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "StoredDocument":
+    def from_dict(cls, data: dict[str, Any]) -> StoredDocument:
         return cls(
             document_id=data["document_id"],
             source_path=data["source_path"],
@@ -107,7 +107,7 @@ class DocumentChunk:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "DocumentChunk":
+    def from_dict(cls, data: dict[str, Any]) -> DocumentChunk:
         return cls(
             document_id=data["document_id"],
             chunk_id=data["chunk_id"],

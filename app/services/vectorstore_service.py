@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from langchain_community.vectorstores.chroma import Chroma
@@ -71,7 +71,7 @@ class VectorStoreService:
         if isinstance(created_at_raw, str):
             created_at = datetime.fromisoformat(created_at_raw)
         else:
-            created_at = datetime.now(timezone.utc)
+            created_at = datetime.now(UTC)
 
         chunk_metadata = DocumentMetadata(
             source=metadata["source"],

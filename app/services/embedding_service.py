@@ -1,7 +1,7 @@
 # app/services/embedding_service.py
 from __future__ import annotations
 
-from typing import Sequence
+from collections.abc import Sequence
 
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 
