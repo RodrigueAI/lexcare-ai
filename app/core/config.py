@@ -26,8 +26,12 @@ class Settings(BaseSettings):
 
     azure_openai_endpoint: str | None = Field(default=None, alias="AZURE_OPENAI_ENDPOINT")
     azure_openai_api_version: str | None = Field(default=None, alias="AZURE_OPENAI_API_VERSION")
-    azure_openai_deployment_name: str | None = Field(default=None, alias="AZURE_OPENAI_DEPLOYMENT_NAME")
-    azure_openai_embeddings_name: str | None = Field(default=None, alias="AZURE_OPENAI_EMBEDDINGS_NAME")
+    azure_openai_deployment_name: str | None = Field(
+        default=None, alias="AZURE_OPENAI_DEPLOYMENT_NAME"
+    )
+    azure_openai_embeddings_name: str | None = Field(
+        default=None, alias="AZURE_OPENAI_EMBEDDINGS_NAME"
+    )
     azure_openai_api_type: str | None = Field(default="azure", alias="AZURE_OPENAI_API_TYPE")
     azure_openai_api_key: SecretStr | None = Field(default=None, alias="AZURE_OPENAI_API_KEY")
 

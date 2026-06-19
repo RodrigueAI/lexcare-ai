@@ -4,6 +4,7 @@ from typing import Sequence
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 from app.core.config import Settings, get_settings
 
+
 class EmbeddingService:
     def __init__(self, settings: Settings | None = None) -> None:
         self.settings = settings or get_settings()
@@ -22,7 +23,10 @@ class EmbeddingService:
             if not self.settings.azure_openai_api_version:
                 raise ValueError("AZURE_OPENAI_API_VERSION is required for Azure OpenAI.")
 
-            deployment = self.settings.azure_openai_embeddings_name or self.settings.azure_openai_deployment_name
+            deployment = (
+                self.settings.azure_openai_embeddings_name
+                or self.settings.azure_openai_deployment_name
+            )
 
             if not deployment:
                 raise ValueError(
@@ -56,7 +60,6 @@ class EmbeddingService:
         return OpenAIEmbeddings(
             model=self.settings.embedding_model,
             api_key=api_key,
-
         )
 
     def embed_documents(self, texts: Sequence[str]) -> list[list[float]]:
