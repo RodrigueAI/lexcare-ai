@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from pypdf import PdfReader
@@ -51,7 +51,7 @@ class PDFLoader:
             source=source,
             document_type=document_type,
             topic=topic,
-            created_at=created_at or datetime.now(timezone.utc),
+            created_at=created_at or datetime.now(UTC),
             extra=pdf_metadata,
         )
 

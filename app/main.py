@@ -1,6 +1,7 @@
 # app/main.py
-from contextlib import asynccontextmanager
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,7 +14,7 @@ logger = logging.getLogger("lexcare-ai")
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     logger.info("Starting %s", settings.app_name)
     yield
     logger.info("Shutting down %s", settings.app_name)

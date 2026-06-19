@@ -4,10 +4,12 @@ version = "0.1.0"
 description = "AI-powered RAG assistant for healthcare regulations, legislation, and policy updates."
 readme = "README.md"
 requires-python = ">=3.12"
+
 authors = [
     { name = "Rodrigue Lawson" }
 ]
-license = { text = "MIT" }
+
+license = "MIT"
 
 keywords = [
     "rag",
@@ -23,13 +25,28 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3.12",
     "Framework :: FastAPI",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License"
+    "Intended Audience :: Developers"
 ]
 
 [project.urls]
-Homepage = "https://github.com/<your-username>/lexcare-ai"
-Repository = "https://github.com/<your-username>/lexcare-ai"
+Homepage = "https://github.com/RodrigueAI/lexcare-ai"
+Repository = "https://github.com/RodrigueAI/lexcare-ai"
+
+# --------------------------------------------------------------------
+# Setuptools Package Discovery
+# --------------------------------------------------------------------
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+exclude = [
+    "data*",
+    "notebooks*",
+    "tests*"
+]
 
 # --------------------------------------------------------------------
 # Black
@@ -111,12 +128,17 @@ exclude = [
 ]
 
 # --------------------------------------------------------------------
-# Ruff (optional but recommended)
+# Ruff
 # --------------------------------------------------------------------
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+
+extend-exclude = [
+    "notebooks",
+    "*.ipynb",
+]
 
 [tool.ruff.lint]
 select = [
@@ -124,11 +146,11 @@ select = [
     "F",
     "I",
     "UP",
-    "B"
+    "B",
 ]
 
 ignore = [
-    "E501"
+    "E501",
 ]
 
 # --------------------------------------------------------------------

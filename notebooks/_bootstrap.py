@@ -1,8 +1,8 @@
 # notebooks/_bootstrap.py
 from __future__ import annotations
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
 
 def get_project_root() -> Path:
