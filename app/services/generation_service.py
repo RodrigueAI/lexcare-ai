@@ -1,20 +1,13 @@
+# app/services/generation_service.py
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Any
 
-from langchain_openai import AzureChatOpenAI, ChatOpenAI
+from langchain_openai import AzureChatOpenAI
 
 from app.core.config import Settings, get_settings
-from app.domain.models import DocumentChunk
-from app.prompts.rag_prompt import RAG_PROMPT
-
-
-@dataclass(frozen=True)
-class GeneratedAnswer:
-    question: str
-    answer: str
-    sources: list[dict[str, Any]]
+from app.domain.models import DocumentChunk, GeneratedAnswer
+from app.prompts import RAG_PROMPT
 
 
 class GenerationService:
@@ -22,45 +15,30 @@ class GenerationService:
         self.settings = settings or get_settings()
         self._llm = self._build_llm()
 
-    def _build_llm(self):
-        api_key = (
-            self.settings.azure_openai_api_key.get_secret_value()
-            if getattr(self.settings, "azure_openai_api_key", None)
-            else (
-                self.settings.azure_openai_api_key.get_secret_value()
-                if self.settings.azure_openai_api_key
-                else None
-            )
+    def _build_llm(self) -> AzureChatOpenAI:
+        if not self.settings.azure_openai_endpoint:
+            raise ValueError("AZURE_OPENAI_ENDPOINT is required for Azure OpenAI.")
+
+        if not self.settings.azure_openai_api_version:
+            raise ValueError("AZURE_OPENAI_API_VERSION is required for Azure OpenAI.")
+
+        deployment = (
+            self.settings.azure_openai_chat_deployment_name
+            or self.settings.azure_openai_deployment_name
         )
-
-        is_azure = (
-            getattr(self.settings, "azure_openai_api_type", "") or ""
-        ).lower() == "azure" or bool(getattr(self.settings, "azure_openai_endpoint", None))
-
-        if is_azure:
-            if not getattr(self.settings, "azure_openai_endpoint", None):
-                raise ValueError("AZURE_OPENAI_ENDPOINT is required for Azure OpenAI.")
-            if not getattr(self.settings, "azure_openai_api_version", None):
-                raise ValueError("AZURE_OPENAI_API_VERSION is required for Azure OpenAI.")
-
-            deployment = (
-                getattr(self.settings, "azure_openai_deployment_name", None)
-                or self.settings.chat_model
+        if not deployment:
+            raise ValueError(
+                "AZURE_OPENAI_CHAT_DEPLOYMENT_NAME or AZURE_OPENAI_DEPLOYMENT_NAME is required for Azure OpenAI."
             )
 
-            return AzureChatOpenAI(
-                azure_endpoint=self.settings.azure_openai_endpoint,
-                azure_deployment=deployment,
-                api_key=api_key,
-                api_version=self.settings.azure_openai_api_version,
-            )
+        if self.settings.azure_openai_api_key is None:
+            raise ValueError("AZURE_OPENAI_API_KEY is required for Azure OpenAI.")
 
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY is required.")
-
-        return ChatOpenAI(
-            model=self.settings.chat_model,
-            api_key=api_key,
+        return AzureChatOpenAI(
+            azure_endpoint=self.settings.azure_openai_endpoint,
+            azure_deployment=deployment,
+            api_version=self.settings.azure_openai_api_version,
+            api_key=self.settings.azure_openai_api_key,
         )
 
     def generate(
@@ -97,7 +75,8 @@ class GenerationService:
 
         for chunk in chunks:
             parts.append(
-                f"[source={chunk.metadata.source} | document_id={chunk.document_id} | chunk_id={chunk.chunk_id} | chunk_index={chunk.chunk_index}]\n"
+                f"[source={chunk.metadata.source} | document_id={chunk.document_id} | "
+                f"chunk_id={chunk.chunk_id} | chunk_index={chunk.chunk_index}]\n"
                 f"{chunk.text}"
             )
 
