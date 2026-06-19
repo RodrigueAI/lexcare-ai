@@ -4,6 +4,7 @@ from functools import lru_cache
 from app.core.config import Settings, get_settings
 from app.services.embedding_service import EmbeddingService
 from app.services.rag_service import RAGService
+from app.services.retriever_service import RetrieverService
 from app.services.vectorstore_service import VectorStoreService
 
 
@@ -20,6 +21,11 @@ def get_embedding_service() -> EmbeddingService:
 @lru_cache
 def get_vectorstore_service() -> VectorStoreService:
     return VectorStoreService()
+
+
+@lru_cache
+def get_retriever_service() -> RetrieverService:
+    return RetrieverService(get_vectorstore_service())
 
 
 @lru_cache
