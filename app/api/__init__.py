@@ -1,5 +1,1 @@
-from .routes import router
-
-__all__ = [
-    "router",
-]
+# intentionally empty

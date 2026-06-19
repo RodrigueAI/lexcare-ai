@@ -3,6 +3,7 @@ from functools import lru_cache
 
 from app.core.config import Settings, get_settings
 from app.services.embedding_service import EmbeddingService
+from app.services.generation_service import GenerationService
 from app.services.rag_service import RAGService
 from app.services.retriever_service import RetrieverService
 from app.services.vectorstore_service import VectorStoreService
@@ -29,5 +30,13 @@ def get_retriever_service() -> RetrieverService:
 
 
 @lru_cache
+def get_generation_service() -> GenerationService:
+    return GenerationService()
+
+
+@lru_cache
 def get_rag_service() -> RAGService:
-    return RAGService()
+    return RAGService(
+        retriever_service=get_retriever_service(),
+        generation_service=get_generation_service(),
+    )
