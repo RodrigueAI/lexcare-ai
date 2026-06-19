@@ -47,7 +47,7 @@ class EmbeddingService:
                 api_version=self.settings.azure_openai_api_version,
             )
 
-        api_key = self.settings.openai_api_key
+        api_key = self.settings.azure_openai_api_key
         if not api_key:
             raise ValueError("OPENAI_API_KEY is required.")
 
