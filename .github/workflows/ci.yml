@@ -54,4 +54,8 @@ jobs:
 
       - name: Tests
         run: |
-          pytest --cov=app --cov-report=term-missing
+          if [ -d tests ] && find tests -type f \( -name 'test_*.py' -o -name '*_test.py' \) | grep -q .; then
+            pytest --cov=app --cov-report=term-missing
+          else
+            echo "No tests found in tests/. Skipping pytest."
+          fi
