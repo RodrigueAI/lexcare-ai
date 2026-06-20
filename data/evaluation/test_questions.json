@@ -1,0 +1,37 @@
+[
+  {
+    "id": "q1",
+    "question": "Was ist Pflegegrad 3?",
+    "expected_answer": "Schwere Beeinträchtigungen der Selbständigkeit oder der Fähigkeiten; Zuordnung bei 47,5 bis unter 70 Gesamtpunkten.",
+    "expected_topics": ["pflegeversicherung", "pflegegrad"],
+    "expected_sources": ["SGB_11.pdf"]
+  },
+  {
+    "id": "q2",
+    "question": "Wer hat Anspruch auf Pflegegeld?",
+    "expected_answer": "Versicherte mit Pflegegrad 2 bis 5 bei häuslicher Pflege durch geeignete Pflegepersonen.",
+    "expected_topics": ["pflegegeld", "pflegeversicherung"],
+    "expected_sources": ["SGB_11.pdf"]
+  },
+  {
+    "id": "q3",
+    "question": "Wie hoch ist der Entlastungsbetrag?",
+    "expected_answer": "Der Entlastungsbetrag beträgt monatlich 125 Euro.",
+    "expected_topics": ["entlastungsbetrag", "pflegeleistungen"],
+    "expected_sources": ["SGB_11.pdf"]
+  },
+  {
+    "id": "q4",
+    "question": "Was regelt das PUEG?",
+    "expected_answer": "Änderungen zur Unterstützung und Entlastung in der Pflege, inklusive Leistungsanpassungen und Strukturreformen.",
+    "expected_topics": ["pflegereform", "pueg"],
+    "expected_sources": ["PUEG_RefE_Pflegereform_bf.pdf"]
+  },
+  {
+    "id": "q5",
+    "question": "Welche Leistungen sind in der gesetzlichen Krankenversicherung geregelt?",
+    "expected_answer": "Leistungen der gesetzlichen Krankenversicherung, unter anderem Krankenbehandlung, Arznei- und Heilmittel sowie weitere Leistungsansprüche.",
+    "expected_topics": ["krankenversicherung", "leistungen"],
+    "expected_sources": ["SGB_5.pdf"]
+  }
+]
