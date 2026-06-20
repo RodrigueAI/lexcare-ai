@@ -52,14 +52,12 @@ jobs:
           ruff check .
           mypy .
 
+      - name: Create .env
+        run: |
+          cp .env.example .env
+
       - name: Tests
         run: |
-          if [ -f .env.example ]; then
-            set -a
-            source .env.example
-            set +a
-          fi
-
           if [ -d tests ] && find tests -type f \( -name 'test_*.py' -o -name '*_test.py' \) | grep -q .; then
             pytest --cov=app --cov-report=term-missing
           else
