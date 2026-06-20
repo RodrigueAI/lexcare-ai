@@ -2,6 +2,7 @@
 from functools import lru_cache
 
 from app.core.config import Settings, get_settings
+from app.repositories.document_repository import DocumentRepository, FileDocumentRepository
 from app.services.embedding_service import EmbeddingService
 from app.services.generation_service import GenerationService
 from app.services.ingestion_service import IngestionService
@@ -46,3 +47,8 @@ def get_rag_service() -> RAGService:
 @lru_cache
 def get_ingestion_service() -> IngestionService:
     return IngestionService()
+
+
+@lru_cache
+def get_document_repository() -> DocumentRepository:
+    return FileDocumentRepository()

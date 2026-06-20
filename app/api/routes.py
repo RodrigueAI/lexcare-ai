@@ -1,13 +1,22 @@
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 
 from app.api.schemas import (
+    DocumentDetailResponse,
     DocumentIngestionResponse,
+    DocumentSummaryResponse,
     QueryRequest,
     QueryResponse,
 )
-from app.dependencies.container import get_ingestion_service, get_rag_service
+from app.dependencies.container import (
+    get_document_repository,
+    get_ingestion_service,
+    get_rag_service,
+)
+from app.domain.models import StoredDocument
+from app.repositories.document_repository import DocumentRepository
 from app.services.ingestion_service import IngestionService
 from app.services.rag_service import RAGService
 
@@ -70,3 +79,50 @@ async def ingest_document(
         page_count=page_count,
         text_length=len(stored_document.text),
     )
+
+
+def _document_to_summary(document: StoredDocument) -> DocumentSummaryResponse:
+    extra = document.metadata.extra
+    filename = str(extra.get("filename", Path(document.source_path).name))
+    page_count = int(extra.get("page_count", 0))
+
+    return DocumentSummaryResponse(
+        document_id=document.document_id,
+        filename=filename,
+        source=document.metadata.source,
+        document_type=document.metadata.document_type,
+        topic=document.metadata.topic,
+        source_path=document.source_path,
+        page_count=page_count,
+        text_length=len(document.text),
+        created_at=document.metadata.created_at,
+    )
+
+
+def _document_to_detail(document: StoredDocument) -> DocumentDetailResponse:
+    summary = _document_to_summary(document)
+    return DocumentDetailResponse(
+        **summary.model_dump(),
+        text_preview=document.text[:2000],
+    )
+
+
+@router.get("/documents", summary="List ingested documents")
+async def list_documents(
+    repository: Annotated[DocumentRepository, Depends(get_document_repository)],
+) -> list[DocumentSummaryResponse]:
+    documents = repository.list_documents()
+    return [_document_to_summary(document) for document in documents]
+
+
+@router.get("/documents/{document_id}", summary="Get document details")
+async def get_document(
+    document_id: str,
+    repository: Annotated[DocumentRepository, Depends(get_document_repository)],
+) -> DocumentDetailResponse:
+    try:
+        document = repository.read(document_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Document not found.") from exc
+
+    return _document_to_detail(document)
