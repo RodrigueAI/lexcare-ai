@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import Any
 
 from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 
@@ -14,7 +13,9 @@ class EmbeddingService:
         self._embeddings = self._build_embeddings()
 
     @property
-    def embedding_function(self) -> Any:
+    def embedding_function(
+        self,
+    ) -> AzureOpenAIEmbeddings | OpenAIEmbeddings:
         return self._embeddings
 
     def _build_embeddings(self) -> AzureOpenAIEmbeddings | OpenAIEmbeddings:

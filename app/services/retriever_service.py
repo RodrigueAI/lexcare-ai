@@ -9,11 +9,18 @@ class RetrieverService:
     def __init__(self, vectorstore_service: VectorStoreService | None = None) -> None:
         self.vectorstore_service = vectorstore_service or VectorStoreService()
 
-    def retrieve(self, query: str, top_k: int = 5) -> list[DocumentChunk]:
+    def retrieve(
+        self,
+        query: str,
+        top_k: int = 5,
+    ) -> list[DocumentChunk]:
         if not query or not query.strip():
             return []
-
+        query = query.strip()
         if top_k <= 0:
             raise ValueError("top_k must be greater than 0")
 
-        return self.vectorstore_service.similarity_search(query=query, top_k=top_k)
+        return self.vectorstore_service.similarity_search(
+            query=query,
+            top_k=top_k,
+        )
