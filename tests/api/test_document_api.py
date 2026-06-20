@@ -9,7 +9,10 @@ from app.dependencies.container import (
 from tests.conftest import FakeDocumentRepository, FakeIngestionService
 
 
-def test_documents_list_endpoint(app: FastAPI, fake_document_repository: FakeDocumentRepository,) -> None:
+def test_documents_list_endpoint(
+    app: FastAPI,
+    fake_document_repository: FakeDocumentRepository,
+) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_document_repository] = lambda: fake_document_repository
@@ -26,7 +29,9 @@ def test_documents_list_endpoint(app: FastAPI, fake_document_repository: FakeDoc
     assert "created_at" in payload[0]
 
 
-def test_document_detail_endpoint(app: FastAPI, fake_document_repository: FakeDocumentRepository) -> None:
+def test_document_detail_endpoint(
+    app: FastAPI, fake_document_repository: FakeDocumentRepository
+) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_document_repository] = lambda: fake_document_repository
@@ -42,7 +47,9 @@ def test_document_detail_endpoint(app: FastAPI, fake_document_repository: FakeDo
     assert isinstance(payload["text_preview"], str)
 
 
-def test_document_detail_not_found(app: FastAPI, fake_document_repository: FakeDocumentRepository) -> None:
+def test_document_detail_not_found(
+    app: FastAPI, fake_document_repository: FakeDocumentRepository
+) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_document_repository] = lambda: fake_document_repository
@@ -54,7 +61,9 @@ def test_document_detail_not_found(app: FastAPI, fake_document_repository: FakeD
     assert response.json()["detail"] == "Document not found."
 
 
-def test_document_upload_happy_path(app: FastAPI, fake_ingestion_service: FakeIngestionService) -> None:
+def test_document_upload_happy_path(
+    app: FastAPI, fake_ingestion_service: FakeIngestionService
+) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_ingestion_service] = lambda: fake_ingestion_service

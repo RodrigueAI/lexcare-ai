@@ -1,10 +1,10 @@
 # tests/api/test_query_api.py
-from app.dependencies.container import get_rag_service
 from fastapi import FastAPI
-
 from fastapi.testclient import TestClient
 
+from app.dependencies.container import get_rag_service
 from tests.conftest import FakeRAGService
+
 
 def test_query_endpoint_happy_path(
     app: FastAPI,
@@ -58,4 +58,3 @@ def test_query_endpoint_invalid_top_k(
     )
 
     assert response.status_code == 422
-    
