@@ -1,6 +1,8 @@
+from collections.abc import Iterator
 from datetime import UTC, datetime
 
 import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.api.schemas import QueryResponse, SourceItem
@@ -80,7 +82,7 @@ class FakeDocumentRepository:
             },
         )
 
-        self._documents = {
+        self._documents: dict[str, StoredDocument] = {
             "doc-1": StoredDocument(
                 document_id="doc-1",
                 source_path="data/raw/gesetze_im_internet/SGB_5.pdf",
@@ -95,37 +97,37 @@ class FakeDocumentRepository:
             ),
         }
 
-    def list_documents(self):
+    def list_documents(self) -> list[StoredDocument]:
         return list(self._documents.values())
 
-    def read(self, document_id: str):
+    def read(self, document_id: str) -> StoredDocument:
         if document_id not in self._documents:
             raise FileNotFoundError(document_id)
         return self._documents[document_id]
 
 
 @pytest.fixture()
-def app():
+def app() -> Iterator[FastAPI]:
     application = create_app()
     yield application
     application.dependency_overrides.clear()
 
 
 @pytest.fixture()
-def client(app):
+def client(app: FastAPI) -> TestClient:
     return TestClient(app)
 
 
 @pytest.fixture()
-def fake_rag_service():
+def fake_rag_service() -> FakeRAGService:
     return FakeRAGService()
 
 
 @pytest.fixture()
-def fake_ingestion_service():
+def fake_ingestion_service() -> FakeIngestionService:
     return FakeIngestionService()
 
 
 @pytest.fixture()
-def fake_document_repository():
+def fake_document_repository() -> FakeDocumentRepository:
     return FakeDocumentRepository()

@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -41,9 +42,11 @@ class FakePdfReader:
 class FakeEncryptedPdfReader:
     def __init__(self, file_path: str) -> None:
         self.file_path = file_path
-        self.pages = [FakePage("Encrypted content")]
-        self.metadata = {}
-        self.is_encrypted = True
+        self.pages: list[FakePage] = [
+            FakePage("Encrypted content"),
+        ]
+        self.metadata: dict[str, Any] = {}
+        self.is_encrypted: bool = True
 
     def decrypt(self, password: str) -> bool:
         raise RuntimeError("Cannot decrypt")

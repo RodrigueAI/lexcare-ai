@@ -52,7 +52,7 @@ def _make_chunk(
 
 
 @patch("app.services.generation_service.AzureChatOpenAI")
-def test_builds_azure_llm(mock_azure_chat_openai):
+def test_builds_azure_llm(mock_azure_chat_openai: Mock) -> None:
     mock_llm = Mock()
     mock_azure_chat_openai.return_value = mock_llm
 
@@ -63,7 +63,7 @@ def test_builds_azure_llm(mock_azure_chat_openai):
 
 
 @patch("app.services.generation_service.AzureChatOpenAI")
-def test_generate_returns_answer_and_sources(mock_azure_chat_openai):
+def test_generate_returns_answer_and_sources(mock_azure_chat_openai: Mock) -> None:
     mock_llm = Mock()
     mock_llm.invoke.return_value = Mock(content="Pflegegrad 3 bedeutet schwere Beeinträchtigungen.")
     mock_azure_chat_openai.return_value = mock_llm
@@ -99,7 +99,7 @@ def test_generate_returns_answer_and_sources(mock_azure_chat_openai):
 
 
 @patch("app.services.generation_service.AzureChatOpenAI")
-def test_generate_returns_fallback_when_no_chunks(mock_azure_chat_openai):
+def test_generate_returns_fallback_when_no_chunks(mock_azure_chat_openai: Mock) -> None:
     mock_azure_chat_openai.return_value = Mock()
 
     service = GenerationService(settings=_make_settings())
@@ -110,11 +110,11 @@ def test_generate_returns_fallback_when_no_chunks(mock_azure_chat_openai):
     )
 
     assert result.question == "Was ist Pflegegrad 3?"
-    assert result.answer == ("I could not find relevant information in the available documents.")
+    assert result.answer == "I could not find relevant information in the available documents."
     assert result.sources == []
 
 
-def test_raises_when_endpoint_missing():
+def test_raises_when_endpoint_missing() -> None:
     settings = Settings.model_construct(
         azure_openai_api_version="2024-02-15-preview",
         azure_openai_deployment_name="gpt-4o-mini",
@@ -128,7 +128,7 @@ def test_raises_when_endpoint_missing():
         GenerationService(settings=settings)
 
 
-def test_raises_when_api_version_missing():
+def test_raises_when_api_version_missing() -> None:
     settings = Settings.model_construct(
         azure_openai_endpoint="https://example.openai.azure.com/",
         azure_openai_deployment_name="gpt-4o-mini",
@@ -142,7 +142,7 @@ def test_raises_when_api_version_missing():
         GenerationService(settings=settings)
 
 
-def test_raises_when_deployment_missing():
+def test_raises_when_deployment_missing() -> None:
     settings = Settings.model_construct(
         azure_openai_endpoint="https://example.openai.azure.com/",
         azure_openai_api_version="2024-02-15-preview",
@@ -156,7 +156,7 @@ def test_raises_when_deployment_missing():
         GenerationService(settings=settings)
 
 
-def test_raises_when_api_key_missing():
+def test_raises_when_api_key_missing() -> None:
     settings = Settings.model_construct(
         azure_openai_endpoint="https://example.openai.azure.com/",
         azure_openai_api_version="2024-02-15-preview",

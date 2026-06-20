@@ -1,3 +1,5 @@
+# tests/api/test_api.py
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.api.schemas import QueryResponse, SourceItem
@@ -20,7 +22,7 @@ class FakeRAGService:
         )
 
 
-def test_query_endpoint_happy_path(app):
+def test_query_endpoint_happy_path(app: FastAPI) -> None:
     app.dependency_overrides[get_rag_service] = lambda: FakeRAGService()
     client = TestClient(app)
 

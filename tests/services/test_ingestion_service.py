@@ -117,7 +117,7 @@ def test_ingest_pdf_bytes_rejects_empty_content(tmp_path: Path) -> None:
 
 @patch("app.services.ingestion_service.uuid4", return_value="fixed-uuid")
 def test_save_raw_pdf_writes_file_to_expected_location(
-    mock_uuid4,
+    mock_uuid4: Mock,
     tmp_path: Path,
 ) -> None:
     service = IngestionService(settings=_make_settings(tmp_path))

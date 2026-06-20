@@ -1,10 +1,15 @@
+# tests/api/test_document_api.py
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
 from app.dependencies.container import (
     get_document_repository,
     get_ingestion_service,
 )
+from tests.conftest import FakeDocumentRepository, FakeIngestionService
 
 
-def test_documents_list_endpoint(app, fake_document_repository):
+def test_documents_list_endpoint(app: FastAPI, fake_document_repository: FakeDocumentRepository,) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_document_repository] = lambda: fake_document_repository
@@ -21,7 +26,7 @@ def test_documents_list_endpoint(app, fake_document_repository):
     assert "created_at" in payload[0]
 
 
-def test_document_detail_endpoint(app, fake_document_repository):
+def test_document_detail_endpoint(app: FastAPI, fake_document_repository: FakeDocumentRepository) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_document_repository] = lambda: fake_document_repository
@@ -37,7 +42,7 @@ def test_document_detail_endpoint(app, fake_document_repository):
     assert isinstance(payload["text_preview"], str)
 
 
-def test_document_detail_not_found(app, fake_document_repository):
+def test_document_detail_not_found(app: FastAPI, fake_document_repository: FakeDocumentRepository) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_document_repository] = lambda: fake_document_repository
@@ -49,7 +54,7 @@ def test_document_detail_not_found(app, fake_document_repository):
     assert response.json()["detail"] == "Document not found."
 
 
-def test_document_upload_happy_path(app, fake_ingestion_service):
+def test_document_upload_happy_path(app: FastAPI, fake_ingestion_service: FakeIngestionService) -> None:
     from fastapi.testclient import TestClient
 
     app.dependency_overrides[get_ingestion_service] = lambda: fake_ingestion_service
@@ -75,7 +80,9 @@ def test_document_upload_happy_path(app, fake_ingestion_service):
     assert payload["topic"] == "krankenversicherung"
 
 
-def test_document_upload_rejects_non_pdf(client):
+def test_document_upload_rejects_non_pdf(
+    client: TestClient,
+) -> None:
     response = client.post(
         "/api/documents",
         files={"file": ("notes.txt", b"hello", "text/plain")},
