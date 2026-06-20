@@ -1,80 +1,179 @@
 # LexCare AI
 
-An AI-powered Retrieval-Augmented Generation (RAG) platform for healthcare legislation, policy documents, regulatory updates, and official publications.
+AI-powered Retrieval-Augmented Generation (RAG) platform for healthcare legislation, policy documents, and regulatory updates.
 
-LexCare AI enables users to query healthcare-related regulations and policy documents using natural language while providing transparent source references.
+LexCare AI enables users to query healthcare-related regulations and policy documents using natural language while providing transparent source references and traceability.
+
+---
+
+## Current Status
+
+⚠️ **Active Development**
+
+LexCare AI is currently under active development.
+
+The core RAG pipeline is functional and includes:
+
+- PDF document ingestion
+- Metadata extraction
+- Document processing and chunking
+- Embedding generation
+- Chroma vector store integration
+- Semantic retrieval
+- Source-grounded answer generation
+- FastAPI REST API
+- Automated test suite
+
+Planned enhancements include:
+
+- Incremental document ingestion
+- Automated source synchronization
+- Data engineering layer (PySpark / Data Vault)
+- Frontend application (Next.js)
+- Advanced evaluation framework
 
 ---
 
 ## Features
 
-- PDF document ingestion
-- Support for public healthcare legislation and policy documents
-- Semantic search using vector embeddings
-- Retrieval-Augmented Generation (RAG)
-- Source-aware responses
-- FastAPI REST API
-- Modular object-oriented architecture
-- Extensible data ingestion pipeline
+### Document Ingestion
+
+- PDF document upload
+- Metadata extraction
+- Structured document repository
+
+### Document Processing
+
+- Text cleaning
+- Metadata enrichment
+- Configurable chunking
+
+### Retrieval
+
+- Azure OpenAI embeddings
+- Chroma vector database
+- Similarity search
+- Top-k retrieval
+
+### Generation
+
+- Source-grounded answer generation
+- Hallucination reduction prompt
+- Source attribution
+
+### API
+
+- `POST /api/query`
+- `POST /api/documents`
+- `GET /api/documents`
+- `GET /api/documents/{document_id}`
 
 ---
 
 ## Architecture
 
 ```text
-Documents (PDFs / APIs)
+PDF Documents
         │
         ▼
-   Ingestion Layer
+   PDF Loader
         │
         ▼
-  Text Processing
-  - Cleaning
-  - Chunking
+Document Repository
         │
         ▼
-   Embeddings
+Document Processing
+  ├─ Metadata
+  ├─ Cleaning
+  └─ Chunking
         │
         ▼
- Vector Database
+ Embedding Service
         │
         ▼
-    Retriever
+ Chroma Vector Store
         │
         ▼
-      LLM
+ Retriever Service
         │
         ▼
- Generated Answer
- + Source References
+ Generation Service
+        │
+        ▼
+    RAG Service
+        │
+        ▼
+ FastAPI Endpoints
 ```
+
+---
 
 ## Technology Stack
 
 ### Backend
 
-- Python
+- Python 3.12
 - FastAPI
-- LangChain
+- Pydantic
 
 ### AI & Retrieval
 
-- OpenAI / Azure OpenAI
-- Vector Database (Chroma or FAISS)
-- Embedding Models
+- LangChain
+- Azure OpenAI
+- Chroma
 
-### Data Processing
+### Testing
 
-- PyPDF
-- LangChain Document Loaders
+- Pytest
 
-### Future Enhancements
+### Development
 
-- PySpark ingestion pipelines
-- Data Vault modeling
-- Healthcare policy monitoring
-- Next.js frontend
-- Automated document updates via APIs
+- Black
+- Ruff
+- MyPy
+
+---
+
+## Evaluation
+
+Current evaluation dataset:
+
+| Query | Expected Source |
+|---------|---------|
+| Was ist Pflegegrad 3? | SGB XI |
+| Wer hat Anspruch auf Pflegegeld? | SGB XI |
+| Wie hoch ist der Entlastungsbetrag? | SGB XI |
+| Was regelt das PUEG? | PUEG |
+| Welche Leistungen sind in der gesetzlichen Krankenversicherung geregelt? | SGB V |
+
+Current retrieval evaluation:
+
+- Hit Rate@5: 100%
+- Source Attribution: Supported
+- End-to-End Tests: Passing
+
+---
+
+## Getting Started
+
+### Create Environment
+
+```bash
+conda env create -f environment.yml
+conda activate lexcare-ai
+```
+
+### Start API
+
+```bash
+uvicorn app.main:app --reload
+```
+
+### Open API Documentation
+
+```text
+http://localhost:8000/redoc
+```
 
 ---
 
@@ -84,25 +183,50 @@ Documents (PDFs / APIs)
 app/
 ├── api/
 ├── core/
+├── dependencies/
 ├── domain/
 ├── infrastructure/
 ├── repositories/
 ├── services/
-└── utils/
+└── prompts/
+
+tests/
+notebooks/
+data/
 ```
 
 ---
 
-## Example Questions
+## Roadmap
 
-- What are the latest changes to long-term care benefits?
-- Which requirements apply to Care Level 3?
-- What recent healthcare policy updates have been published?
-- Which regulations govern home healthcare services?
-- What are the eligibility criteria for support benefits?
+### Phase 1
+
+- [x] RAG MVP
+- [x] API Layer
+- [x] Evaluation Framework
+
+### Phase 2
+
+- [ ] Incremental ingestion
+- [ ] Automated source updates
+- [ ] Enhanced retrieval evaluation
+
+### Phase 3
+
+- [ ] PySpark processing layer
+- [ ] Delta Lake integration
+- [ ] Data Vault modeling
+
+### Phase 4
+
+- [ ] Next.js frontend
+- [ ] Authentication
+- [ ] User document collections
 
 ---
 
 ## Disclaimer
 
-This project is intended for educational and research purposes. Responses generated by the system do not constitute legal, medical, or professional advice.
+LexCare AI is intended for educational, research, and portfolio purposes.
+
+Generated answers should not be considered legal, medical, or professional advice. Always consult official sources and qualified professionals when making healthcare or legal decisions.
