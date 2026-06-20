@@ -6,7 +6,7 @@ from app.dependencies.container import (
     get_document_repository,
     get_ingestion_service,
 )
-from tests.helper import FakeDocumentRepository, FakeIngestionService
+from tests.helpers import FakeDocumentRepository, FakeIngestionService
 
 
 def test_documents_list_endpoint(

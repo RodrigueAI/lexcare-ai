@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.main import create_app
-from tests.helper import FakeDocumentRepository, FakeIngestionService, FakeRAGService
+from tests.helpers import FakeDocumentRepository, FakeIngestionService, FakeRAGService
 
 
 @pytest.fixture()
