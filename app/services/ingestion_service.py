@@ -4,7 +4,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from app.core.config import Settings, get_settings
-from app.domain.models import LoadedDocument, StoredDocument
+from app.domain.models import StoredDocument
 from app.infrastructure.pdf_loader import PDFLoader
 from app.repositories.document_repository import DocumentRepository, FileDocumentRepository
 

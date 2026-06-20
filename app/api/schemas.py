@@ -19,6 +19,7 @@ class QueryResponse(BaseModel):
     answer: str
     sources: list[SourceItem] = []
 
+
 class DocumentIngestionResponse(BaseModel):
     document_id: str
     filename: str
