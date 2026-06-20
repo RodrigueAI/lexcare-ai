@@ -40,6 +40,7 @@ class Settings(BaseSettings):
 
     vector_store: str = Field(default="chroma", alias="VECTOR_STORE")
     chroma_path: str = Field(default="./chroma_db", alias="CHROMA_PATH")
+    raw_upload_dir: str = Field(default="data/raw/uploads", alias="RAW_UPLOAD_DIR")
 
     def parsed_cors_origins(self) -> list[str]:
         if self.cors_origins.strip() == "*":
