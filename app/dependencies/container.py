@@ -4,6 +4,7 @@ from functools import lru_cache
 from app.core.config import Settings, get_settings
 from app.services.embedding_service import EmbeddingService
 from app.services.generation_service import GenerationService
+from app.services.ingestion_service import IngestionService
 from app.services.rag_service import RAGService
 from app.services.retriever_service import RetrieverService
 from app.services.vectorstore_service import VectorStoreService
@@ -40,3 +41,8 @@ def get_rag_service() -> RAGService:
         retriever_service=get_retriever_service(),
         generation_service=get_generation_service(),
     )
+
+
+@lru_cache
+def get_ingestion_service() -> IngestionService:
+    return IngestionService()

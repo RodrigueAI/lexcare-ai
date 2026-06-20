@@ -18,3 +18,14 @@ class QueryResponse(BaseModel):
     question: str
     answer: str
     sources: list[SourceItem] = []
+
+class DocumentIngestionResponse(BaseModel):
+    document_id: str
+    filename: str
+    source: str
+    document_type: str
+    topic: str
+    source_path: str
+    page_count: int
+    text_length: int
+    status: str = "ingested"
