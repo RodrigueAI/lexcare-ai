@@ -1,4 +1,6 @@
 # app/api/schemas.py
+from datetime import datetime
+
 from pydantic import BaseModel, Field
 
 
@@ -30,3 +32,19 @@ class DocumentIngestionResponse(BaseModel):
     page_count: int
     text_length: int
     status: str = "ingested"
+
+
+class DocumentSummaryResponse(BaseModel):
+    document_id: str
+    filename: str
+    source: str
+    document_type: str
+    topic: str
+    source_path: str
+    page_count: int
+    text_length: int
+    created_at: datetime
+
+
+class DocumentDetailResponse(DocumentSummaryResponse):
+    text_preview: str
