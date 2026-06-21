@@ -18,7 +18,8 @@ keywords = [
     "healthcare",
     "legislation",
     "vector-search",
-    "ai"
+    "ai",
+    "yaml"
 ]
 
 classifiers = [

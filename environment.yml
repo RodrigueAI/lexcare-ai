@@ -54,3 +54,4 @@ dependencies:
       - ragas
       # OpenAI SDK
       - openai
+      - types-PyYAML
