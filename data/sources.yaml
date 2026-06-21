@@ -1,19 +1,25 @@
 # data/source.yaml
 sources:
-  - id: sgb_v
-    file_name: SGB_5.pdf
-    category: law
-    topic: krankenversicherung
-    source: gesetze-im-internet
+  - source_id: gesetze-im-internet
+    name: Gesetze im Internet
+    source_type: file
+    description: German federal legislation
+    enabled: true
 
-  - id: sgb_xi
-    file_name: SGB_11.pdf
-    category: law
-    topic: pflegeversicherung
-    source: gesetze-im-internet
+    metadata:
+      owner: Bundesministerium der Justiz
 
-  - id: pueg_refe
-    file_name: PEUG_RefE_Pflegereform_bf.pdf
-    category: law
-    topic: pflegereform
-    source: gesetze-im-internet
+  - source_id: gba
+    name: Gemeinsamer Bundesausschuss
+    source_type: rss
+    enabled: false
+
+  - source_id: bundestag
+    name: Bundestag Open Data
+    source_type: api
+    enabled: false
+
+  - source_id: dip
+    name: Dokumentations- und Informationssystem für Parlamentarische Vorgänge
+    source_type: api
+    enabled: false
