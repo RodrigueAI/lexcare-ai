@@ -22,10 +22,7 @@ class SourceRegistry:
             )
         )
 
-        return [
-            self._to_definition(item)
-            for item in data.get("sources", [])
-        ]
+        return [self._to_definition(item) for item in data.get("sources", [])]
 
     def get(
         self,
