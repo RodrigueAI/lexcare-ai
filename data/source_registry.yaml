@@ -1,0 +1,40 @@
+sources:
+  - source_id: gesetze-im-internet
+    name: Gesetze im Internet
+    source_type: file
+    description: German federal legislation PDFs
+    enabled: true
+    metadata:
+      root_path: data/raw/gesetze_im_internet
+      file_pattern: "**/*.pdf"
+      document_type: law
+      topic: healthcare-law
+
+  - source_id: gba
+    name: Gemeinsamer Bundesausschuss
+    source_type: rss
+    enabled: false
+    metadata:
+      feed_urls: []
+      document_type: regulation
+      topic: healthcare-regulation
+
+  - source_id: bundestag
+    name: Bundestag Open Data
+    source_type: api
+    enabled: false
+    metadata:
+      endpoint: https://example.invalid/api
+      document_type: parliamentary
+      topic: legislation
+
+  - source_id: bmg-web
+    name: Bundesministerium für Gesundheit
+    source_type: web
+    enabled: false
+    metadata:
+      urls: []
+      allowed_domains:
+        - bundesgesundheitsministerium.de
+      document_type: public-web
+      topic: healthcare-policy
