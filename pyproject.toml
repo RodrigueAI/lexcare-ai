@@ -122,6 +122,10 @@ disallow_untyped_defs = false
 disallow_incomplete_defs = false
 check_untyped_defs = false
 
+[[tool.mypy.overrides]]
+module = ["feedparser"]
+ignore_missing_imports = true
+
 # --------------------------------------------------------------------
 # Ruff
 # --------------------------------------------------------------------
