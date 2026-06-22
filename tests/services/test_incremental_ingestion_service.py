@@ -7,13 +7,20 @@ from app.domain.ingestion import IngestionRecord
 from app.domain.models import LoadedDocument, StoredDocument
 from app.domain.source import SourceDefinition
 from app.domain.source_artifact import SourceArtifact
+from app.repositories.contracts import (
+    DocumentRepositoryProtocol,
+    IngestionIndexRepositoryProtocol,
+)
 from app.repositories.source_registry import SourceRegistry
 from app.services.incremental_ingestion_service import IncrementalIngestionService
 
 
-class FakeIngestionIndexRepository:
+class FakeIngestionIndexRepository(IngestionIndexRepositoryProtocol):
     def __init__(self) -> None:
         self.records: list[IngestionRecord] = []
+
+    def load_all(self) -> list[IngestionRecord]:
+        return list(self.records)
 
     def find_latest(self, source_id: str, artifact_uri: str) -> IngestionRecord | None:
         matches = [
@@ -27,29 +34,39 @@ class FakeIngestionIndexRepository:
         self.records.append(record)
 
 
-class FakeDocumentRepository:
+class FakeDocumentRepository(DocumentRepositoryProtocol):
     def __init__(self) -> None:
-        self.saved: list[LoadedDocument] = []
+        self.saved: list[StoredDocument] = []
 
     def save(self, document: LoadedDocument) -> StoredDocument:
-        self.saved.append(document)
-        return StoredDocument(
-            document_id=f"doc-{len(self.saved)}",
+        stored = StoredDocument(
+            document_id=f"doc-{len(self.saved) + 1}",
             source_path=document.source_path,
             text=document.text,
             metadata=document.metadata,
         )
+        self.saved.append(stored)
+        return stored
+
+    def read(self, document_id: str) -> StoredDocument:
+        for document in self.saved:
+            if document.document_id == document_id:
+                return document
+        raise FileNotFoundError(document_id)
+
+    def list_documents(self) -> list[StoredDocument]:
+        return list(self.saved)
 
 
 class FakeConnector:
-    def __init__(self, artifacts: list[SourceArtifact]) -> None:
+    def __init__(self, artifacts):
         self._artifacts = artifacts
 
-    def fetch(self) -> list[SourceArtifact]:
+    def fetch(self):
         return self._artifacts
 
 
-def test_ingest_skips_unchanged_documents(monkeypatch) -> None:
+def test_ingest_skips_unchanged_documents(monkeypatch):
     source = SourceDefinition(
         source_id="test",
         name="Test",

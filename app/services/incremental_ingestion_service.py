@@ -6,7 +6,10 @@ from datetime import UTC, datetime
 from app.domain.ingestion import IngestionRecord, IngestionSummary
 from app.domain.models import DocumentMetadata, LoadedDocument
 from app.infrastructure.connectors import ConnectorFactory
-from app.repositories.document_repository import DocumentRepository
+from app.repositories.contracts import (
+    DocumentRepositoryProtocol,
+    IngestionIndexRepositoryProtocol,
+)
 from app.repositories.ingestion_index_repository import FileIngestionIndexRepository
 from app.repositories.source_registry import SourceRegistry
 
@@ -15,8 +18,8 @@ class IncrementalIngestionService:
     def __init__(
         self,
         source_registry: SourceRegistry | None = None,
-        document_repository: DocumentRepository | None = None,
-        ingestion_index_repository: FileIngestionIndexRepository | None = None,
+        document_repository: DocumentRepositoryProtocol | None = None,
+        ingestion_index_repository: IngestionIndexRepositoryProtocol | None = None,
     ) -> None:
         self.source_registry = source_registry or SourceRegistry()
 
@@ -60,11 +63,7 @@ class IncrementalIngestionService:
                         source=artifact.source_id,
                         document_type=artifact.metadata.get("document_type", "unknown"),
                         topic=artifact.metadata.get("topic", "unknown"),
-                        created_at=(
-                            artifact.retrieved_at
-                            if hasattr(artifact, "retrieved_at")
-                            else datetime.now(UTC)
-                        ),
+                        created_at=artifact.retrieved_at,
                         extra={
                             **artifact.metadata,
                             "content_hash": content_hash,
