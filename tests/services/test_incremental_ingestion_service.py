@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 from unittest.mock import Mock
 
 from app.domain.ingestion import IngestionRecord
+from app.domain.models import LoadedDocument, StoredDocument
 from app.domain.source import SourceDefinition
 from app.domain.source_artifact import SourceArtifact
 from app.repositories.source_registry import SourceRegistry
@@ -14,7 +15,7 @@ class FakeIngestionIndexRepository:
     def __init__(self) -> None:
         self.records: list[IngestionRecord] = []
 
-    def find_latest(self, source_id: str, artifact_uri: str):
+    def find_latest(self, source_id: str, artifact_uri: str) -> IngestionRecord | None:
         matches = [
             record
             for record in self.records
@@ -28,22 +29,27 @@ class FakeIngestionIndexRepository:
 
 class FakeDocumentRepository:
     def __init__(self) -> None:
-        self.saved = []
+        self.saved: list[LoadedDocument] = []
 
-    def save(self, document):
+    def save(self, document: LoadedDocument) -> StoredDocument:
         self.saved.append(document)
-        return Mock(document_id=f"doc-{len(self.saved)}")
+        return StoredDocument(
+            document_id=f"doc-{len(self.saved)}",
+            source_path=document.source_path,
+            text=document.text,
+            metadata=document.metadata,
+        )
 
 
 class FakeConnector:
-    def __init__(self, artifacts):
+    def __init__(self, artifacts: list[SourceArtifact]) -> None:
         self._artifacts = artifacts
 
-    def fetch(self):
+    def fetch(self) -> list[SourceArtifact]:
         return self._artifacts
 
 
-def test_ingest_skips_unchanged_documents(monkeypatch):
+def test_ingest_skips_unchanged_documents(monkeypatch) -> None:
     source = SourceDefinition(
         source_id="test",
         name="Test",

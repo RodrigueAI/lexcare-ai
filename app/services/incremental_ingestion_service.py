@@ -19,6 +19,10 @@ class IncrementalIngestionService:
         ingestion_index_repository: FileIngestionIndexRepository | None = None,
     ) -> None:
         self.source_registry = source_registry or SourceRegistry()
+
+        if document_repository is None:
+            raise ValueError("Document repository is required.")
+
         self.document_repository = document_repository
         self.ingestion_index_repository = (
             ingestion_index_repository or FileIngestionIndexRepository()
