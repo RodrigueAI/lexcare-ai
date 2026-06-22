@@ -54,4 +54,5 @@ dependencies:
       - ragas
       # OpenAI SDK
       - openai
+      - feedparser
       - types-PyYAML
