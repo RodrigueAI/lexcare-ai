@@ -27,13 +27,11 @@ class DocumentVersion:
         return payload
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "DocumentVersion":
+    def from_dict(cls, data: dict[str, Any]) -> DocumentVersion:
         effective_from = datetime.fromisoformat(data["effective_from"])
         effective_to_raw = data.get("effective_to")
         effective_to = (
-            datetime.fromisoformat(effective_to_raw)
-            if isinstance(effective_to_raw, str)
-            else None
+            datetime.fromisoformat(effective_to_raw) if isinstance(effective_to_raw, str) else None
         )
 
         return cls(
