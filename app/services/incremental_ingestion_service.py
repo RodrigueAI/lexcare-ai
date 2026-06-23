@@ -1,3 +1,4 @@
+# app/services/incremental_ingestion_service.py
 from __future__ import annotations
 
 import hashlib
@@ -12,6 +13,7 @@ from app.repositories.contracts import (
 )
 from app.repositories.ingestion_index_repository import FileIngestionIndexRepository
 from app.repositories.source_registry import SourceRegistry
+from app.services.document_versioning_service import DocumentVersioningService
 
 
 class IncrementalIngestionService:
@@ -19,6 +21,7 @@ class IncrementalIngestionService:
         self,
         source_registry: SourceRegistry | None = None,
         document_repository: DocumentRepositoryProtocol | None = None,
+        document_versioning_service: DocumentVersioningService | None = None,
         ingestion_index_repository: IngestionIndexRepositoryProtocol | None = None,
     ) -> None:
         self.source_registry = source_registry or SourceRegistry()
@@ -27,6 +30,9 @@ class IncrementalIngestionService:
             raise ValueError("Document repository is required.")
 
         self.document_repository = document_repository
+        self.document_versioning_service = (
+            document_versioning_service or DocumentVersioningService()
+        )
         self.ingestion_index_repository = (
             ingestion_index_repository or FileIngestionIndexRepository()
         )
@@ -74,6 +80,15 @@ class IncrementalIngestionService:
 
                 stored_document = self.document_repository.save(loaded_document)
 
+                self.document_versioning_service.record_version(
+                    source_id=artifact.source_id,
+                    artifact_uri=artifact.uri,
+                    stored_document=stored_document,
+                    content_hash=content_hash,
+                    effective_from=artifact.retrieved_at,
+                    metadata=artifact.metadata,
+                )
+
                 record = IngestionRecord(
                     source_id=artifact.source_id,
                     artifact_uri=artifact.uri,
@@ -88,6 +103,7 @@ class IncrementalIngestionService:
                     ingested += 1
                 else:
                     updated += 1
+
             except Exception:
                 errors += 1
 

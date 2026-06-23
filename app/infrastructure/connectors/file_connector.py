@@ -28,7 +28,7 @@ class FileConnector(SourceConnector):
             suffix = path.suffix.lower()
             if suffix == ".pdf":
                 content, extra = self._read_pdf(path)
-            elif suffix in {".txt", ".md"}:
+            elif suffix in {".txt", ".md", ".yaml", ".yml"}:
                 content = path.read_text(encoding="utf-8")
                 extra = {}
             elif suffix == ".json":
@@ -37,9 +37,6 @@ class FileConnector(SourceConnector):
                     ensure_ascii=False,
                     indent=2,
                 )
-                extra = {}
-            elif suffix in {".yaml", ".yml"}:
-                content = path.read_text(encoding="utf-8")
                 extra = {}
             else:
                 continue

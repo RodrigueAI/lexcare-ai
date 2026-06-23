@@ -1,3 +1,4 @@
+# tests/integration/test_registry_factory.py
 from __future__ import annotations
 
 from pathlib import Path
