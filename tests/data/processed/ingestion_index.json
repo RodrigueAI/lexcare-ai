@@ -1,0 +1,13 @@
+[
+  {
+    "source_id": "test-source",
+    "artifact_uri": "file:///doc.txt",
+    "content_hash": "12ddae32c9fd0c6969e03269ae104247c6a2a7efb4d4b37586aac8a6c76ec625",
+    "document_id": "doc-1",
+    "ingested_at": "2026-06-23T10:20:31.436897+00:00",
+    "metadata": {
+      "document_type": "law",
+      "topic": "test"
+    }
+  }
+]
