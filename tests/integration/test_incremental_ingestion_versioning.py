@@ -5,15 +5,11 @@ from unittest.mock import Mock
 
 from app.domain.source import SourceDefinition
 from app.domain.source_artifact import SourceArtifact
-from app.repositories.document_version_repository import (
-    FileDocumentVersionRepository,
-)
-from app.services.document_versioning_service import (
-    DocumentVersioningService,
-)
-from app.services.incremental_ingestion_service import (
-    IncrementalIngestionService,
-)
+from app.repositories.document_version_repository import FileDocumentVersionRepository
+from app.repositories.ingestion_index_repository import FileIngestionIndexRepository
+from app.repositories.source_registry import SourceRegistry
+from app.services.document_versioning_service import DocumentVersioningService
+from app.services.incremental_ingestion_service import IncrementalIngestionService
 
 
 class FakeConnector:
@@ -30,7 +26,6 @@ class FakeDocumentRepository:
 
     def save(self, document):
         self.counter += 1
-
         return Mock(
             document_id=f"doc-{self.counter}",
             source_path=document.source_path,
@@ -39,10 +34,7 @@ class FakeDocumentRepository:
         )
 
 
-def test_incremental_ingestion_creates_versions(
-    monkeypatch,
-    tmp_path,
-):
+def test_incremental_ingestion_creates_versions(monkeypatch, tmp_path):
     source = SourceDefinition(
         source_id="test-source",
         name="Test Source",
@@ -50,11 +42,14 @@ def test_incremental_ingestion_creates_versions(
         metadata={},
     )
 
-    registry = Mock()
+    registry = Mock(spec=SourceRegistry)
     registry.get.return_value = source
 
     version_repo = FileDocumentVersionRepository(
         storage_path=str(tmp_path / "versions.json"),
+    )
+    index_repo = FileIngestionIndexRepository(
+        storage_path=str(tmp_path / "ingestion_index.json"),
     )
 
     version_service = DocumentVersioningService(
@@ -83,11 +78,15 @@ def test_incremental_ingestion_creates_versions(
         source_registry=registry,
         document_repository=FakeDocumentRepository(),
         document_versioning_service=version_service,
+        ingestion_index_repository=index_repo,
     )
 
     summary = service.ingest_source("test-source")
 
     assert summary.ingested == 1
+    assert summary.skipped == 0
+    assert summary.updated == 0
+    assert summary.errors == 0
 
     versions = version_service.list_versions(
         "test-source",

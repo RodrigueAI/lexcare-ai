@@ -1,4 +1,4 @@
-# notebooks/_bootstrap.py
+# experiments/notebooks/_bootstrap.py
 from __future__ import annotations
 
 import sys
@@ -18,17 +18,19 @@ def get_project_root() -> Path:
 
 PROJECT_ROOT = get_project_root()
 SRC_DIR = PROJECT_ROOT / "src"
+DATA_DIR = PROJECT_ROOT / "data"
+EXPERIMENTS_DIR = PROJECT_ROOT / "experiments"
+NOTEBOOKS_DIR = EXPERIMENTS_DIR / "notebooks"
+RAW_DIR = DATA_DIR / "raw"
+PROCESSED_DIR = DATA_DIR / "processed"
+OUTPUT_DIR = EXPERIMENTS_DIR / "output"
+RESULTS_DIR = EXPERIMENTS_DIR / "results"
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 if SRC_DIR.exists() and str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
-
-DATA_DIR = PROJECT_ROOT / "data"
-RAW_DIR = DATA_DIR / "raw"
-PROCESSED_DIR = DATA_DIR / "processed"
-NOTEBOOKS_DIR = PROJECT_ROOT / "notebooks"
 
 
 def find_pdfs() -> list[Path]:

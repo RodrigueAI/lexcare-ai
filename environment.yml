@@ -55,4 +55,5 @@ dependencies:
       # OpenAI SDK
       - openai
       - feedparser
+      - pyspark
       - types-PyYAML

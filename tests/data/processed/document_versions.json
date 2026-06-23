@@ -1,0 +1,16 @@
+[
+  {
+    "document_id": "doc-1",
+    "source_id": "test",
+    "artifact_uri": "file:///doc.pdf",
+    "version_number": 1,
+    "content_hash": "a636bd7cd42060a4d07fa1bfbcc010eb7794c2ba721e1e3e4c20335a15b66eaf",
+    "effective_from": "2024-01-01T00:00:00+00:00",
+    "effective_to": null,
+    "is_current": true,
+    "metadata": {
+      "document_type": "law",
+      "topic": "health"
+    }
+  }
+]
