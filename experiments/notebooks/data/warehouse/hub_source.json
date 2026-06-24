@@ -1,0 +1,26 @@
+[
+  {
+    "source_key": "31dfd5cb-98b9-438a-92ea-bbad81849ed4",
+    "source_id": "gesetze-im-internet",
+    "source_name": "Gesetze im Internet",
+    "created_at": "2026-06-24T08:24:05.710296+00:00"
+  },
+  {
+    "source_key": "3cc8bb38-0301-4ae5-a489-c01891e8a65a",
+    "source_id": "gba",
+    "source_name": "Gemeinsamer Bundesausschuss",
+    "created_at": "2026-06-24T08:24:05.712593+00:00"
+  },
+  {
+    "source_key": "3f17e13d-663c-4c07-a0fe-2c478bb04122",
+    "source_id": "bundestag",
+    "source_name": "Bundestag Open Data",
+    "created_at": "2026-06-24T08:24:05.713180+00:00"
+  },
+  {
+    "source_key": "4759d414-fce6-4339-a5ae-2b49532108b2",
+    "source_id": "bmg-web",
+    "source_name": "Bundesministerium für Gesundheit",
+    "created_at": "2026-06-24T08:24:05.714265+00:00"
+  }
+]
