@@ -1,0 +1,26 @@
+[
+  {
+    "topic_key": "55bf74b4-55dc-41e3-911d-3aa82ae1967b",
+    "topic_id": "62b72d98b6dfc607291b65468294bba122faf84380861360e62238c5823ba377",
+    "topic_name": "healthcare-law",
+    "created_at": "2026-06-25T13:18:54.612691+00:00"
+  },
+  {
+    "topic_key": "a91497a5-4485-4789-8ad4-2f8d02677b8e",
+    "topic_id": "7feeef95454c4346b75a84297b8cafabfead469700001327d29cb17997c2b026",
+    "topic_name": "healthcare-regulation",
+    "created_at": "2026-06-25T13:18:54.613709+00:00"
+  },
+  {
+    "topic_key": "1fc846e6-0558-409d-aae6-d3958cbfa9af",
+    "topic_id": "0b7b13bc416f7216aeca837585dc4bccc6fd9e4bb8e00e41cf608fe9253e60c6",
+    "topic_name": "legislation",
+    "created_at": "2026-06-25T13:18:54.614088+00:00"
+  },
+  {
+    "topic_key": "6315317d-dc68-4553-9d31-f8c1a44741ee",
+    "topic_id": "68e39cf2b05fc26281c6a760d0e6a8be623f7e5eead7980e47ef027cbc02ae32",
+    "topic_name": "healthcare-policy",
+    "created_at": "2026-06-25T13:18:54.614493+00:00"
+  }
+]

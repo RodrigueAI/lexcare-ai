@@ -22,3 +22,11 @@ class HubDocument:
     document_name: str
     source_path: str
     created_at: datetime
+
+
+@dataclass(frozen=True)
+class HubTopic:
+    topic_key: str
+    topic_id: str
+    topic_name: str
+    created_at: datetime
