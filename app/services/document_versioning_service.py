@@ -1,3 +1,4 @@
+# app/services/document_versioning_service.py
 from __future__ import annotations
 
 from dataclasses import replace
@@ -5,7 +6,7 @@ from datetime import UTC, datetime
 
 from app.domain.models import StoredDocument
 from app.domain.versioning import DocumentVersion
-from app.repositories.contracts import DocumentVersionRepositoryProtocol
+from app.repositories.contracts.versioning import DocumentVersionRepositoryProtocol
 from app.repositories.document_version_repository import FileDocumentVersionRepository
 
 
@@ -66,7 +67,6 @@ class DocumentVersioningService:
         latest = self.version_repository.find_latest(source_id, artifact_uri)
         if latest is None:
             return None
-
         return latest if latest.is_current else None
 
     def list_versions(

@@ -7,10 +7,8 @@ from app.domain.ingestion import IngestionRecord
 from app.domain.models import LoadedDocument, StoredDocument
 from app.domain.source import SourceDefinition
 from app.domain.source_artifact import SourceArtifact
-from app.repositories.contracts import (
-    DocumentRepositoryProtocol,
-    IngestionIndexRepositoryProtocol,
-)
+from app.repositories.contracts.document import DocumentWriteRepositoryProtocol
+from app.repositories.contracts.ingestion import IngestionIndexRepositoryProtocol
 from app.repositories.source_registry import SourceRegistry
 from app.services.incremental_ingestion_service import IncrementalIngestionService
 
@@ -34,7 +32,7 @@ class FakeIngestionIndexRepository(IngestionIndexRepositoryProtocol):
         self.records.append(record)
 
 
-class FakeDocumentRepository(DocumentRepositoryProtocol):
+class FakeDocumentRepository(DocumentWriteRepositoryProtocol):
     def __init__(self) -> None:
         self.saved: list[StoredDocument] = []
 
