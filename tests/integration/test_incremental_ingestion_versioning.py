@@ -3,8 +3,10 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from unittest.mock import Mock
 
+from app.domain.models import LoadedDocument, StoredDocument
 from app.domain.source import SourceDefinition
 from app.domain.source_artifact import SourceArtifact
+from app.repositories.contracts.document import DocumentWriteRepositoryProtocol
 from app.repositories.document_version_repository import FileDocumentVersionRepository
 from app.repositories.ingestion_index_repository import FileIngestionIndexRepository
 from app.repositories.source_registry import SourceRegistry
@@ -20,11 +22,11 @@ class FakeConnector:
         return self.artifacts
 
 
-class FakeDocumentRepository:
+class FakeDocumentRepository(DocumentWriteRepositoryProtocol):
     def __init__(self) -> None:
         self.counter = 0
 
-    def save(self, document):
+    def save(self, document: LoadedDocument) -> StoredDocument:
         self.counter += 1
         return Mock(
             document_id=f"doc-{self.counter}",

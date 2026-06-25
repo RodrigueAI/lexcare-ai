@@ -7,9 +7,9 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 from app.domain.warehouse import HubDocument
-from app.repositories.contracts import (
-    DocumentRepositoryProtocol,
-    HubDocumentLookupRepositoryProtocol,
+from app.repositories.contracts.document import DocumentListRepositoryProtocol
+from app.repositories.contracts.warehouse import (
+    HubDocumentRepositoryProtocol,
     HubSourceLookupRepositoryProtocol,
 )
 
@@ -17,9 +17,9 @@ from app.repositories.contracts import (
 class HubDocumentService:
     def __init__(
         self,
-        document_repository: DocumentRepositoryProtocol | None = None,
+        document_repository: DocumentListRepositoryProtocol | None = None,
         hub_source_repository: HubSourceLookupRepositoryProtocol | None = None,
-        hub_document_repository: HubDocumentLookupRepositoryProtocol | None = None,
+        hub_document_repository: HubDocumentRepositoryProtocol | None = None,
     ) -> None:
         if document_repository is None:
             raise ValueError("Document repository is required.")
@@ -28,9 +28,12 @@ class HubDocumentService:
         if hub_document_repository is None:
             raise ValueError("Hub document repository is required.")
 
-        self.document_repository: DocumentRepositoryProtocol = document_repository
+        self.document_repository: DocumentListRepositoryProtocol = document_repository
         self.hub_source_repository: HubSourceLookupRepositoryProtocol = hub_source_repository
-        self.hub_document_repository: HubDocumentLookupRepositoryProtocol = hub_document_repository
+
+        self.hub_document_repository: HubDocumentRepositoryProtocol = (
+            hub_document_repository
+        )
 
     def sync_documents(self) -> list[HubDocument]:
         stored_documents = self.document_repository.list_documents()

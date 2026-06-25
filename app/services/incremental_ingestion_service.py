@@ -7,10 +7,9 @@ from datetime import UTC, datetime
 from app.domain.ingestion import IngestionRecord, IngestionSummary
 from app.domain.models import DocumentMetadata, LoadedDocument
 from app.infrastructure.connectors import ConnectorFactory
-from app.repositories.contracts import (
-    DocumentRepositoryProtocol,
-    IngestionIndexRepositoryProtocol,
-)
+from app.repositories.contracts.document import DocumentWriteRepositoryProtocol
+from app.repositories.contracts.ingestion import IngestionIndexRepositoryProtocol
+from app.repositories.contracts.source import SourceRegistryProtocol
 from app.repositories.ingestion_index_repository import FileIngestionIndexRepository
 from app.repositories.source_registry import SourceRegistry
 from app.services.document_versioning_service import DocumentVersioningService
@@ -19,8 +18,8 @@ from app.services.document_versioning_service import DocumentVersioningService
 class IncrementalIngestionService:
     def __init__(
         self,
-        source_registry: SourceRegistry | None = None,
-        document_repository: DocumentRepositoryProtocol | None = None,
+        source_registry: SourceRegistryProtocol | None = None,
+        document_repository: DocumentWriteRepositoryProtocol | None = None,
         document_versioning_service: DocumentVersioningService | None = None,
         ingestion_index_repository: IngestionIndexRepositoryProtocol | None = None,
     ) -> None:
@@ -103,7 +102,6 @@ class IncrementalIngestionService:
                     ingested += 1
                 else:
                     updated += 1
-
             except Exception:
                 errors += 1
 
