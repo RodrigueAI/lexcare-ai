@@ -31,9 +31,7 @@ class HubDocumentService:
         self.document_repository: DocumentListRepositoryProtocol = document_repository
         self.hub_source_repository: HubSourceLookupRepositoryProtocol = hub_source_repository
 
-        self.hub_document_repository: HubDocumentRepositoryProtocol = (
-            hub_document_repository
-        )
+        self.hub_document_repository: HubDocumentRepositoryProtocol = hub_document_repository
 
     def sync_documents(self) -> list[HubDocument]:
         stored_documents = self.document_repository.list_documents()
