@@ -9,7 +9,9 @@ from .source import SourceRegistryProtocol
 from .versioning import DocumentVersionRepositoryProtocol
 from .warehouse import (
     HubDocumentRepositoryProtocol,
+    HubSourceLookupRepositoryProtocol,
     HubSourceRepositoryProtocol,
+    HubTopicRepositoryProtocol,
 )
 
 __all__ = [
@@ -18,7 +20,9 @@ __all__ = [
     "DocumentWriteRepositoryProtocol",
     "DocumentVersionRepositoryProtocol",
     "HubDocumentRepositoryProtocol",
+    "HubSourceLookupRepositoryProtocol",
     "HubSourceRepositoryProtocol",
+    "HubTopicRepositoryProtocol",
     "IngestionIndexRepositoryProtocol",
     "SourceRegistryProtocol",
 ]
