@@ -67,26 +67,29 @@ class FileConnector(SourceConnector):
         root_path = metadata.get("root_path")
         file_pattern = metadata.get("file_pattern", "**/*")
 
-        resolved: list[Path] = []
-
         if paths:
-            for item in paths:
-                resolved.append(Path(item))
-            return resolved
+            return [self._resolve_path(Path(item)) for item in paths]
 
         if not root_path:
             raise ConnectorConfigError(
                 f"Source '{self.source.source_id}' is missing 'root_path' or 'paths'."
             )
 
-        root = Path(root_path)
+        root = self._resolve_path(Path(root_path))
         if not root.exists():
-            raise ConnectorConfigError(f"Root path does not exist: {root_path}")
+            raise ConnectorConfigError(f"Root path does not exist: {root}")
 
         if root.is_file():
             return [root]
 
         return sorted(root.glob(file_pattern))
+
+    def _resolve_path(self, path: Path) -> Path:
+        if path.is_absolute():
+            return path
+
+        project_root = Path(__file__).resolve().parents[3]
+        return (project_root / path).resolve()
 
     def _read_pdf(self, path: Path) -> tuple[str, dict[str, Any]]:
         try:
