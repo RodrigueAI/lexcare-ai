@@ -9,28 +9,30 @@ from urllib.parse import unquote, urlparse
 from app.domain.warehouse import HubDocument
 from app.repositories.contracts import (
     DocumentRepositoryProtocol,
-    HubDocumentRepositoryProtocol,
-    HubSourceRepositoryProtocol,
+    HubDocumentLookupRepositoryProtocol,
+    HubSourceLookupRepositoryProtocol,
 )
 
 
 class HubDocumentService:
     def __init__(
-        self,
-        document_repository: DocumentRepositoryProtocol | None = None,
-        hub_source_repository: HubSourceRepositoryProtocol | None = None,
-        hub_document_repository: HubDocumentRepositoryProtocol | None = None,
+            self,
+            document_repository: DocumentRepositoryProtocol | None = None,
+            hub_source_repository: HubSourceLookupRepositoryProtocol | None = None,
+            hub_document_repository: HubDocumentLookupRepositoryProtocol | None = None,
     ) -> None:
-        self.document_repository = document_repository
-        self.hub_source_repository = hub_source_repository
-        self.hub_document_repository = hub_document_repository
-
-        if self.document_repository is None:
+        if document_repository is None:
             raise ValueError("Document repository is required.")
-        if self.hub_source_repository is None:
+        if hub_source_repository is None:
             raise ValueError("Hub source repository is required.")
-        if self.hub_document_repository is None:
+        if hub_document_repository is None:
             raise ValueError("Hub document repository is required.")
+
+        self.document_repository: DocumentRepositoryProtocol = document_repository
+        self.hub_source_repository: HubSourceLookupRepositoryProtocol = hub_source_repository
+        self.hub_document_repository: HubDocumentLookupRepositoryProtocol = (
+            hub_document_repository
+        )
 
     def sync_documents(self) -> list[HubDocument]:
         stored_documents = self.document_repository.list_documents()
@@ -75,5 +77,5 @@ class HubDocumentService:
         return self.hub_document_repository.get(document_key)
 
     def _build_document_key(self, source_id: str, source_path: str) -> str:
-        raw = f"{source_id}|{source_path}".encode()
+        raw = f"{source_id}|{source_path}".encode("utf-8")
         return hashlib.sha256(raw).hexdigest()
