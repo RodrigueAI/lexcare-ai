@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from app.domain.models import DocumentMetadata, StoredDocument
+from app.domain.models import DocumentMetadata, LoadedDocument, StoredDocument
 from app.domain.warehouse import HubDocument, HubSource
 from app.services.hub_document_service import HubDocumentService
 
@@ -19,7 +19,7 @@ class FakeHubSourceRepository:
             )
         ]
 
-    def get(self, source_id: str):
+    def get(self, source_id: str) -> HubSource | None:
         for source in self.sources:
             if source.source_id == source_id:
                 return source
@@ -33,7 +33,7 @@ class FakeHubDocumentRepository:
     def load_all(self) -> list[HubDocument]:
         return list(self.documents)
 
-    def get(self, document_key: str):
+    def get(self, document_key: str) -> HubDocument | None:
         for document in self.documents:
             if document.document_key == document_key:
                 return document
@@ -45,13 +45,33 @@ class FakeHubDocumentRepository:
 
 class FakeDocumentRepository:
     def __init__(self, documents: list[StoredDocument]) -> None:
-        self._documents = documents
+        self._documents = list(documents)
 
     def list_documents(self) -> list[StoredDocument]:
         return list(self._documents)
 
+    def read(self, document_id: str) -> StoredDocument:
+        for document in self._documents:
+            if document.document_id == document_id:
+                return document
+        raise FileNotFoundError(document_id)
 
-def _make_stored_document(document_id: str, source_path: str, filename: str) -> StoredDocument:
+    def save(self, document: LoadedDocument) -> StoredDocument:
+        stored = StoredDocument(
+            document_id=f"doc-{len(self._documents) + 1}",
+            source_path=document.source_path,
+            text=document.text,
+            metadata=document.metadata,
+        )
+        self._documents.append(stored)
+        return stored
+
+
+def _make_stored_document(
+    document_id: str,
+    source_path: str,
+    filename: str,
+) -> StoredDocument:
     metadata = DocumentMetadata(
         source="gesetze-im-internet",
         document_type="law",
@@ -59,6 +79,7 @@ def _make_stored_document(document_id: str, source_path: str, filename: str) -> 
         created_at=datetime(2024, 1, 1, tzinfo=UTC),
         extra={"filename": filename},
     )
+
     return StoredDocument(
         document_id=document_id,
         source_path=source_path,
@@ -94,6 +115,7 @@ def test_sync_documents_skips_existing_entries() -> None:
             _make_stored_document("doc-1", "data/raw/a.pdf", "a.pdf"),
         ]
     )
+
     hub_doc_repo = FakeHubDocumentRepository()
 
     service = HubDocumentService(
@@ -113,6 +135,7 @@ def test_sync_documents_skips_existing_entries() -> None:
 def test_get_returns_document_by_key() -> None:
     hub_doc_repo = FakeHubDocumentRepository()
     source_repo = FakeHubSourceRepository()
+
     doc_repo = FakeDocumentRepository(
         [
             _make_stored_document("doc-1", "data/raw/a.pdf", "a.pdf"),
