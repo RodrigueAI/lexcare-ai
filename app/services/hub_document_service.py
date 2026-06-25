@@ -1,3 +1,4 @@
+# app/services/hub_document_service.py
 from __future__ import annotations
 
 import hashlib
@@ -6,21 +7,30 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 from app.domain.warehouse import HubDocument
-from app.repositories.document_repository import FileDocumentRepository
-from app.repositories.hub_document_repository import FileHubDocumentRepository
-from app.repositories.hub_source_repository import FileHubSourceRepository
+from app.repositories.contracts import (
+    DocumentRepositoryProtocol,
+    HubDocumentRepositoryProtocol,
+    HubSourceRepositoryProtocol,
+)
 
 
 class HubDocumentService:
     def __init__(
         self,
-        document_repository: FileDocumentRepository | None = None,
-        hub_source_repository: FileHubSourceRepository | None = None,
-        hub_document_repository: FileHubDocumentRepository | None = None,
+        document_repository: DocumentRepositoryProtocol | None = None,
+        hub_source_repository: HubSourceRepositoryProtocol | None = None,
+        hub_document_repository: HubDocumentRepositoryProtocol | None = None,
     ) -> None:
-        self.document_repository = document_repository or FileDocumentRepository()
-        self.hub_source_repository = hub_source_repository or FileHubSourceRepository()
-        self.hub_document_repository = hub_document_repository or FileHubDocumentRepository()
+        self.document_repository = document_repository
+        self.hub_source_repository = hub_source_repository
+        self.hub_document_repository = hub_document_repository
+
+        if self.document_repository is None:
+            raise ValueError("Document repository is required.")
+        if self.hub_source_repository is None:
+            raise ValueError("Hub source repository is required.")
+        if self.hub_document_repository is None:
+            raise ValueError("Hub document repository is required.")
 
     def sync_documents(self) -> list[HubDocument]:
         stored_documents = self.document_repository.list_documents()
