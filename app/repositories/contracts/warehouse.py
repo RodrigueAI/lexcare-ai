@@ -4,7 +4,6 @@ from __future__ import annotations
 from typing import Protocol
 
 from app.domain.warehouse import HubDocument, HubSource, HubTopic
-from app.domain.warehouse import HubDocument, HubSource
 
 
 class HubSourceLookupRepositoryProtocol(Protocol):
