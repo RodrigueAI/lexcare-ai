@@ -1,3 +1,4 @@
+# app/repositories/contracts.py
 from __future__ import annotations
 
 from typing import Protocol
@@ -5,6 +6,7 @@ from typing import Protocol
 from app.domain.ingestion import IngestionRecord
 from app.domain.models import LoadedDocument, StoredDocument
 from app.domain.versioning import DocumentVersion
+from app.domain.warehouse import HubDocument, HubSource
 
 
 class DocumentRepositoryProtocol(Protocol):
@@ -25,3 +27,12 @@ class DocumentVersionRepositoryProtocol(Protocol):
     def find_latest(self, source_id: str, artifact_uri: str) -> DocumentVersion | None: ...
     def save_version(self, version: DocumentVersion) -> None: ...
     def update_version(self, version: DocumentVersion) -> None: ...
+
+
+class HubSourceLookupRepositoryProtocol(Protocol):
+    def get(self, source_id: str) -> HubSource | None: ...
+
+
+class HubDocumentLookupRepositoryProtocol(Protocol):
+    def get(self, document_key: str) -> HubDocument | None: ...
+    def save(self, hub_document: HubDocument) -> None: ...

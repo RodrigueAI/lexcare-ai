@@ -20,5 +20,67 @@
       "document_type": "law",
       "topic": "test"
     }
+  },
+  {
+    "source_id": "gesetze-im-internet",
+    "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
+    "content_hash": "1839c6eee028aeaee409ddde017f93201023979237c9f9d8f9025e465916487f",
+    "document_id": "f8cff336-65bf-4c4e-bd74-e7ae083cf7d3",
+    "ingested_at": "2026-06-24T20:35:10.305703+00:00",
+    "metadata": {
+      "file_name": "PUEG_RefE_Pflegereform_bf.pdf",
+      "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
+      "file_size_bytes": 1301360,
+      "suffix": ".pdf",
+      "pdf_metadata": {
+        "/Author": "Bundesministerium für Gesundheit (BMG); www.bundesgesundheitsministerium.de",
+        "/CreationDate": "D:20230315104937+01'00'",
+        "/Creator": "",
+        "/Keywords": "Referentenentwurf des Bundesministeriums für Gesundheit - Entwurf eines Gesetzes zur Unterstützung und Entlastung in der Pflege (Pflegeunterstützungs- und -entlastungsgesetz – PUEG) ; \"Bundesministerium für Gesundheit (BMG); www.bundesgesundheitsministerium.de\"; Gesetzte/Verordnungen",
+        "/ModDate": "D:20230320140306+01'00'",
+        "/Producer": "",
+        "/Subject": "Gesetzte/Verordnungen",
+        "/Title": "Referentenentwurf des Bundesministeriums für Gesundheit - Entwurf eines Gesetzes zur Unterstützung und Entlastung in der Pflege (Pflegeunterstützungs- und -entlastungsgesetz – PUEG) "
+      },
+      "page_count": 112
+    }
+  },
+  {
+    "source_id": "gesetze-im-internet",
+    "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
+    "content_hash": "8b3d33a7123bba295f9037ad77fc2f6e561b694e9567b63caccba7d760d064d4",
+    "document_id": "a86b2a55-d52d-44b9-afb9-38ffc070f947",
+    "ingested_at": "2026-06-24T20:35:10.310220+00:00",
+    "metadata": {
+      "file_name": "SGB_11.pdf",
+      "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
+      "file_size_bytes": 873576,
+      "suffix": ".pdf",
+      "pdf_metadata": {
+        "/Creator": "Apache FOP Version 2.6",
+        "/Producer": "Apache FOP Version 2.6",
+        "/CreationDate": "D:20260513215037+02'00'"
+      },
+      "page_count": 177
+    }
+  },
+  {
+    "source_id": "gesetze-im-internet",
+    "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
+    "content_hash": "d690b8c24e2c9d0d7e7f0709d9a5d23e6d1fef8fe5ce981b062235d38da77bd2",
+    "document_id": "0af5293a-fdcf-4b00-9584-2a8f6e36f786",
+    "ingested_at": "2026-06-24T20:35:10.321828+00:00",
+    "metadata": {
+      "file_name": "SGB_5.pdf",
+      "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
+      "file_size_bytes": 2658246,
+      "suffix": ".pdf",
+      "pdf_metadata": {
+        "/Creator": "Apache FOP Version 2.6",
+        "/Producer": "Apache FOP Version 2.6",
+        "/CreationDate": "D:20260611215033+02'00'"
+      },
+      "page_count": 568
+    }
   }
 ]
