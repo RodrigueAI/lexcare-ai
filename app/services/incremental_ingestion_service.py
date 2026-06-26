@@ -61,15 +61,30 @@ class IncrementalIngestionService:
                     skipped += 1
                     continue
 
+                source_metadata = getattr(source, "metadata", {}) or {}
+
+                document_type = self._first_non_empty(
+                    artifact.metadata.get("document_type"),
+                    source_metadata.get("document_type"),
+                    default="unknown",
+                )
+
+                topic = self._first_non_empty(
+                    artifact.metadata.get("topic"),
+                    source_metadata.get("topic"),
+                    default="unknown",
+                )
+
                 loaded_document = LoadedDocument(
                     source_path=artifact.uri,
                     text=artifact.content,
                     metadata=DocumentMetadata(
                         source=artifact.source_id,
-                        document_type=artifact.metadata.get("document_type", "unknown"),
-                        topic=artifact.metadata.get("topic", "unknown"),
+                        document_type=document_type,
+                        topic=topic,
                         created_at=artifact.retrieved_at,
                         extra={
+                            **source_metadata,
                             **artifact.metadata,
                             "content_hash": content_hash,
                             "artifact_uri": artifact.uri,
@@ -117,3 +132,9 @@ class IncrementalIngestionService:
     def _hash_content(self, content: str) -> str:
         normalized = content.strip().encode("utf-8")
         return hashlib.sha256(normalized).hexdigest()
+
+    def _first_non_empty(self, *values: object, default: str = "unknown") -> str:
+        for value in values:
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+        return default
