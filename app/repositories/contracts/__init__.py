@@ -8,10 +8,13 @@ from .ingestion import IngestionIndexRepositoryProtocol
 from .source import SourceRegistryProtocol
 from .versioning import DocumentVersionRepositoryProtocol
 from .warehouse import (
+    HubDocumentLookupRepositoryProtocol,
     HubDocumentRepositoryProtocol,
     HubSourceLookupRepositoryProtocol,
     HubSourceRepositoryProtocol,
+    HubTopicLookupRepositoryProtocol,
     HubTopicRepositoryProtocol,
+    LinkDocumentTopicRepositoryProtocol,
 )
 
 __all__ = [
@@ -19,10 +22,13 @@ __all__ = [
     "DocumentReadRepositoryProtocol",
     "DocumentWriteRepositoryProtocol",
     "DocumentVersionRepositoryProtocol",
+    "HubDocumentLookupRepositoryProtocol",
     "HubDocumentRepositoryProtocol",
     "HubSourceLookupRepositoryProtocol",
     "HubSourceRepositoryProtocol",
+    "HubTopicLookupRepositoryProtocol",
     "HubTopicRepositoryProtocol",
     "IngestionIndexRepositoryProtocol",
+    "LinkDocumentTopicRepositoryProtocol",
     "SourceRegistryProtocol",
 ]
