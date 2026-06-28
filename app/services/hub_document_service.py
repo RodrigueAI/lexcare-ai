@@ -1,11 +1,11 @@
 # app/services/hub_document_service.py
 from __future__ import annotations
 
-import hashlib
 from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+from app.domain.keys import WarehouseKeyFactory
 from app.domain.warehouse import HubDocument
 from app.repositories.contracts.document import DocumentListRepositoryProtocol
 from app.repositories.contracts.warehouse import (
@@ -43,17 +43,15 @@ class HubDocumentService:
             if source is None:
                 continue
 
-            document_key = self._build_document_key(
-                source_id=source_id,
-                source_path=stored.source_path,
-            )
+            document_id = WarehouseKeyFactory.build_document_id(source_id, stored.source_path)
+            document_key = WarehouseKeyFactory.create_document_key(document_id)
 
             if self.hub_document_repository.get(document_key) is not None:
                 continue
 
             hub_document = HubDocument(
                 document_key=document_key,
-                document_id=stored.document_id,
+                document_id=document_id,
                 source_key=source.source_key,
                 source_id=source_id,
                 document_name=self._extract_document_name(stored.source_path),
@@ -74,7 +72,3 @@ class HubDocumentService:
 
     def get(self, document_key: str) -> HubDocument | None:
         return self.hub_document_repository.get(document_key)
-
-    def _build_document_key(self, source_id: str, source_path: str) -> str:
-        raw = f"{source_id}|{source_path}".encode()
-        return hashlib.sha256(raw).hexdigest()

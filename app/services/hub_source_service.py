@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from uuid import uuid4
 
+from app.domain.keys import WarehouseKeyFactory
 from app.domain.warehouse import HubSource
 from app.repositories.contracts.source import SourceRegistryProtocol
 from app.repositories.contracts.warehouse import HubSourceRepositoryProtocol
@@ -30,7 +30,7 @@ class HubSourceService:
                 continue
 
             hub_source = HubSource(
-                source_key=str(uuid4()),
+                source_key=WarehouseKeyFactory.create_source_key(source.source_id),
                 source_id=source.source_id,
                 source_name=source.name,
                 created_at=datetime.now(UTC),

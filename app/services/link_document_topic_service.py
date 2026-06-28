@@ -1,9 +1,9 @@
 # app/services/link_document_topic_service.py
 from __future__ import annotations
 
-import hashlib
 from datetime import UTC, datetime
 
+from app.domain.keys import WarehouseKeyFactory
 from app.domain.models import StoredDocument
 from app.domain.warehouse import LinkDocumentTopic
 from app.repositories.contracts.document import DocumentListRepositoryProtocol
@@ -34,29 +34,32 @@ class LinkDocumentTopicService:
         created: list[LinkDocumentTopic] = []
 
         for stored in self.document_repository.list_documents():
-            document_key = self._build_document_key(
+            document_id = WarehouseKeyFactory.build_document_id(
                 source_id=stored.metadata.source,
                 source_path=stored.source_path,
             )
+
+            document_key = WarehouseKeyFactory.create_document_key(document_id)
 
             if self.hub_document_repository.get(document_key) is None:
                 continue
 
             topic_names = self._extract_topic_names(stored)
+
             for topic_name in topic_names:
-                topic_id = self._normalize_topic_id(topic_name)
+                topic_id = WarehouseKeyFactory.build_topic_id(topic_name)
                 topic = self.hub_topic_repository.get(topic_id)
                 if topic is None:
                     continue
 
-                link_key = self._build_link_key(document_key, topic_id)
+                link_key = WarehouseKeyFactory.create_link_key(document_key, topic.topic_key)
                 if self.link_repository.get(link_key) is not None:
                     continue
 
                 link = LinkDocumentTopic(
                     link_key=link_key,
                     document_key=document_key,
-                    topic_key=topic_id,
+                    topic_key=topic.topic_key,
                     created_at=datetime.now(UTC),
                 )
 
@@ -98,15 +101,3 @@ class LinkDocumentTopicService:
             result.append(normalized)
 
         return result
-
-    def _build_document_key(self, source_id: str, source_path: str) -> str:
-        raw = f"{source_id}|{source_path}".encode()
-        return hashlib.sha256(raw).hexdigest()
-
-    def _normalize_topic_id(self, topic_name: str) -> str:
-        raw = topic_name.strip().lower().encode("utf-8")
-        return hashlib.sha256(raw).hexdigest()
-
-    def _build_link_key(self, document_key: str, topic_key: str) -> str:
-        raw = f"{document_key}|{topic_key}".encode()
-        return hashlib.sha256(raw).hexdigest()

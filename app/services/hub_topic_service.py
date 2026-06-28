@@ -1,10 +1,9 @@
 # app/services/hub_topic_service.py
 from __future__ import annotations
 
-import hashlib
 from datetime import UTC, datetime
-from uuid import uuid4
 
+from app.domain.keys import WarehouseKeyFactory
 from app.domain.warehouse import HubTopic
 from app.repositories.contracts.source import SourceRegistryProtocol
 from app.repositories.contracts.warehouse import HubTopicRepositoryProtocol
@@ -27,13 +26,13 @@ class HubTopicService:
 
         for source in sources:
             for topic_name in self._extract_topics(source.metadata):
-                topic_id = self._normalize_topic_id(topic_name)
+                topic_id = WarehouseKeyFactory.build_topic_id(topic_name)
 
                 if self.repository.get(topic_id) is not None:
                     continue
 
                 hub_topic = HubTopic(
-                    topic_key=str(uuid4()),
+                    topic_key=WarehouseKeyFactory.create_topic_key(topic_id),
                     topic_id=topic_id,
                     topic_name=topic_name,
                     created_at=datetime.now(UTC),
@@ -60,19 +59,14 @@ class HubTopicService:
                 if isinstance(item, str) and item.strip():
                     topics.append(item.strip())
 
-        # deduplicate while preserving order
         seen: set[str] = set()
         result: list[str] = []
         for item in topics:
             normalized = item.strip()
-            if normalized.lower() in seen:
+            key = normalized.lower()
+            if key in seen:
                 continue
-            seen.add(normalized.lower())
+            seen.add(key)
             result.append(normalized)
 
         return result
-
-    def _normalize_topic_id(self, topic_name: str) -> str:
-        normalized = topic_name.strip().lower()
-        raw = normalized.encode("utf-8")
-        return hashlib.sha256(raw).hexdigest()
