@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from app.domain.ingestion import IngestionRecord, IngestionSummary
 from app.domain.models import DocumentMetadata, LoadedDocument
 from app.infrastructure.connectors import ConnectorFactory
-from app.repositories.contracts.document import DocumentWriteRepositoryProtocol
+from app.repositories.contracts.document import DocumentIngestionRepositoryProtocol
 from app.repositories.contracts.ingestion import IngestionIndexRepositoryProtocol
 from app.repositories.contracts.source import SourceRegistryProtocol
 from app.repositories.ingestion_index_repository import FileIngestionIndexRepository
@@ -19,7 +19,7 @@ class IncrementalIngestionService:
     def __init__(
         self,
         source_registry: SourceRegistryProtocol | None = None,
-        document_repository: DocumentWriteRepositoryProtocol | None = None,
+        document_repository: DocumentIngestionRepositoryProtocol | None = None,
         document_versioning_service: DocumentVersioningService | None = None,
         ingestion_index_repository: IngestionIndexRepositoryProtocol | None = None,
     ) -> None:
@@ -58,10 +58,16 @@ class IncrementalIngestionService:
                 )
 
                 if latest and latest.content_hash == content_hash:
-                    skipped += 1
-                    continue
+                    try:
+                        self.document_repository.read(latest.document_id)
+                        skipped += 1
+                        continue
+                    except FileNotFoundError:
+                        pass
 
                 source_metadata = getattr(source, "metadata", {}) or {}
+
+                source_topics = self._extract_topics(source_metadata)
 
                 document_type = self._first_non_empty(
                     artifact.metadata.get("document_type"),
@@ -69,10 +75,14 @@ class IncrementalIngestionService:
                     default="unknown",
                 )
 
-                topic = self._first_non_empty(
-                    artifact.metadata.get("topic"),
-                    source_metadata.get("topic"),
-                    default="unknown",
+                primary_topic = (
+                    source_topics[0]
+                    if source_topics
+                    else self._first_non_empty(
+                        artifact.metadata.get("topic"),
+                        source_metadata.get("topic"),
+                        default="unknown",
+                    )
                 )
 
                 loaded_document = LoadedDocument(
@@ -81,11 +91,12 @@ class IncrementalIngestionService:
                     metadata=DocumentMetadata(
                         source=artifact.source_id,
                         document_type=document_type,
-                        topic=topic,
+                        topic=primary_topic,
                         created_at=artifact.retrieved_at,
                         extra={
                             **source_metadata,
                             **artifact.metadata,
+                            "topics": source_topics,
                             "content_hash": content_hash,
                             "artifact_uri": artifact.uri,
                         },
@@ -138,3 +149,28 @@ class IncrementalIngestionService:
             if isinstance(value, str) and value.strip():
                 return value.strip()
         return default
+
+    def _extract_topics(self, metadata: dict[str, object]) -> list[str]:
+        topics: list[str] = []
+
+        topic_value = metadata.get("topic")
+        if isinstance(topic_value, str) and topic_value.strip():
+            topics.append(topic_value.strip())
+
+        topic_list = metadata.get("topics")
+        if isinstance(topic_list, list):
+            for item in topic_list:
+                if isinstance(item, str) and item.strip():
+                    topics.append(item.strip())
+
+        seen: set[str] = set()
+        result: list[str] = []
+        for item in topics:
+            normalized = item.strip()
+            key = normalized.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            result.append(normalized)
+
+        return result

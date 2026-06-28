@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
+from app.domain.keys import WarehouseKeyFactory
 from app.domain.models import DocumentMetadata, StoredDocument
 from app.domain.warehouse import HubDocument, HubTopic, LinkDocumentTopic
 from app.services.link_document_topic_service import LinkDocumentTopicService
@@ -86,15 +87,15 @@ def _make_stored_document(
 
 
 def _make_hub_document(document_id: str, source_path: str) -> HubDocument:
-    document_key = LinkDocumentTopicService(
-        document_repository=FakeDocumentRepository([]),
-        hub_document_repository=FakeHubDocumentRepository([]),
-        hub_topic_repository=FakeHubTopicRepository([]),
-    )._build_document_key("gesetze-im-internet", source_path)
+
+    business_id = WarehouseKeyFactory.build_document_id(
+        "gesetze-im-internet",
+        source_path,
+    )
 
     return HubDocument(
-        document_key=document_key,
-        document_id=document_id,
+        document_key=WarehouseKeyFactory.create_document_key(business_id),
+        document_id=business_id,
         source_key="source-key-1",
         source_id="gesetze-im-internet",
         document_name="sample.pdf",
@@ -104,14 +105,10 @@ def _make_hub_document(document_id: str, source_path: str) -> HubDocument:
 
 
 def _make_topic(topic_name: str) -> HubTopic:
-    topic_id = LinkDocumentTopicService(
-        document_repository=FakeDocumentRepository([]),
-        hub_document_repository=FakeHubDocumentRepository([]),
-        hub_topic_repository=FakeHubTopicRepository([]),
-    )._normalize_topic_id(topic_name)
+    topic_id = WarehouseKeyFactory.build_topic_id(topic_name)
 
     return HubTopic(
-        topic_key="topic-key-" + topic_name,
+        topic_key=WarehouseKeyFactory.create_topic_key(topic_id),
         topic_id=topic_id,
         topic_name=topic_name,
         created_at=datetime(2024, 1, 1, tzinfo=UTC),
@@ -188,8 +185,8 @@ def test_find_by_topic_key_returns_related_links() -> None:
     )
 
     created = service.sync_links()
-    found = service.find_by_topic_key(topic.topic_id)
+    found = service.find_by_topic_key(topic.topic_key)
 
     assert len(created) == 1
     assert len(found) == 1
-    assert found[0].topic_key == topic.topic_id
+    assert found[0].topic_key == topic.topic_key

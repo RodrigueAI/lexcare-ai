@@ -1,0 +1,20 @@
+[
+  {
+    "link_key": "a7b3a221-9d02-5e2d-ba4f-10b7d73ad63d",
+    "document_key": "105f3cb3-a3d5-5bc8-90fb-853b86735460",
+    "topic_key": "ae4ec098-55d5-5abe-8993-5d03bb12e9d1",
+    "created_at": "2026-06-28T10:30:16.361125+00:00"
+  },
+  {
+    "link_key": "c6551f81-e385-545a-a187-730331d87133",
+    "document_key": "b61bc03c-6064-53bc-8c53-723fc86d1e51",
+    "topic_key": "ae4ec098-55d5-5abe-8993-5d03bb12e9d1",
+    "created_at": "2026-06-28T10:30:16.361670+00:00"
+  },
+  {
+    "link_key": "b20e4897-08d1-57d4-91e3-08b11a89bf89",
+    "document_key": "7956037b-e679-5bfa-ae40-95c491bdb1cc",
+    "topic_key": "ae4ec098-55d5-5abe-8993-5d03bb12e9d1",
+    "created_at": "2026-06-28T10:30:16.362187+00:00"
+  }
+]

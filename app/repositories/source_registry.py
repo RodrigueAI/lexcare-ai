@@ -16,10 +16,13 @@ class SourceRegistry:
         if not self.registry_path.exists():
             return []
 
-        data = yaml.safe_load(
-            self.registry_path.read_text(
-                encoding="utf-8",
+        data = (
+            yaml.safe_load(
+                self.registry_path.read_text(
+                    encoding="utf-8",
+                )
             )
+            or {}
         )
 
         return [self._to_definition(item) for item in data.get("sources", [])]

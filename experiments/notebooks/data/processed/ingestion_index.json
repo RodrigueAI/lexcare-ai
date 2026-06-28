@@ -1,32 +1,10 @@
 [
   {
-    "source_id": "test-source",
-    "artifact_uri": "file:///doc.txt",
-    "content_hash": "12ddae32c9fd0c6969e03269ae104247c6a2a7efb4d4b37586aac8a6c76ec625",
-    "document_id": "doc-1",
-    "ingested_at": "2026-06-22T13:18:50.151978+00:00",
-    "metadata": {
-      "document_type": "law",
-      "topic": "test"
-    }
-  },
-  {
-    "source_id": "test-source",
-    "artifact_uri": "file:///doc.txt",
-    "content_hash": "3f3d4fc618e015bf0e12e14a9bf3a0179499c962a128dd37bbe1e6b7d37fc601",
-    "document_id": "doc-2",
-    "ingested_at": "2026-06-22T13:18:50.184577+00:00",
-    "metadata": {
-      "document_type": "law",
-      "topic": "test"
-    }
-  },
-  {
     "source_id": "gesetze-im-internet",
     "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
     "content_hash": "1839c6eee028aeaee409ddde017f93201023979237c9f9d8f9025e465916487f",
-    "document_id": "f8cff336-65bf-4c4e-bd74-e7ae083cf7d3",
-    "ingested_at": "2026-06-24T20:35:10.305703+00:00",
+    "document_id": "f7a3050f-5ab9-4a37-9fba-479923fe5bbb",
+    "ingested_at": "2026-06-28T10:30:16.269626+00:00",
     "metadata": {
       "file_name": "PUEG_RefE_Pflegereform_bf.pdf",
       "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
@@ -49,8 +27,8 @@
     "source_id": "gesetze-im-internet",
     "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
     "content_hash": "8b3d33a7123bba295f9037ad77fc2f6e561b694e9567b63caccba7d760d064d4",
-    "document_id": "a86b2a55-d52d-44b9-afb9-38ffc070f947",
-    "ingested_at": "2026-06-24T20:35:10.310220+00:00",
+    "document_id": "7faf2bd4-8347-449b-bd5b-8c11bf4012a1",
+    "ingested_at": "2026-06-28T10:30:16.273830+00:00",
     "metadata": {
       "file_name": "SGB_11.pdf",
       "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
@@ -68,8 +46,8 @@
     "source_id": "gesetze-im-internet",
     "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
     "content_hash": "d690b8c24e2c9d0d7e7f0709d9a5d23e6d1fef8fe5ce981b062235d38da77bd2",
-    "document_id": "0af5293a-fdcf-4b00-9584-2a8f6e36f786",
-    "ingested_at": "2026-06-24T20:35:10.321828+00:00",
+    "document_id": "0a6a005e-f6d0-43ee-8544-eea0504502ea",
+    "ingested_at": "2026-06-28T10:30:16.285101+00:00",
     "metadata": {
       "file_name": "SGB_5.pdf",
       "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
