@@ -8,33 +8,40 @@ sources:
       root_path: data/raw/gesetze_im_internet
       file_pattern: "**/*.pdf"
       document_type: law
-      topic: healthcare-law
+      topics:
+        - healthcare-law
 
   - source_id: gba
     name: Gemeinsamer Bundesausschuss
     source_type: rss
+    description: Publications and decisions of the G-BA
     enabled: false
     metadata:
       feed_urls: []
       document_type: regulation
-      topic: healthcare-regulation
+      topics:
+        - healthcare-regulation
 
   - source_id: bundestag
     name: Bundestag Open Data
     source_type: api
+    description: Parliamentary documents and legislation
     enabled: false
     metadata:
       endpoint: https://example.invalid/api
       document_type: parliamentary
-      topic: legislation
+      topics:
+        - legislation
 
   - source_id: bmg-web
     name: Bundesministerium für Gesundheit
     source_type: web
+    description: Publications from the Federal Ministry of Health
     enabled: false
     metadata:
       urls: []
       allowed_domains:
         - bundesgesundheitsministerium.de
       document_type: public-web
-      topic: healthcare-policy
+      topics:
+        - healthcare-policy
