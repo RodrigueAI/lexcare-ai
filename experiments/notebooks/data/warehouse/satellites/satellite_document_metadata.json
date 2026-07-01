@@ -1,0 +1,258 @@
+[
+  {
+    "satellite_key": "e7a8f3c7-e292-577e-af5d-fec43c4a3429",
+    "document_key": "105f3cb3-a3d5-5bc8-90fb-853b86735460",
+    "hash_diff": "0ee0f8f81e85cccaff064a455740a9a0192192c9fcde6c41c7c04e068652e950",
+    "loaded_at": "2026-07-01T17:45:28.300170+00:00",
+    "effective_from": "2026-07-01T17:45:28.300170+00:00",
+    "effective_to": "2026-07-01T17:45:28.304567+00:00",
+    "is_current": false,
+    "record_source": "lexcare-ai",
+    "payload": {
+      "source": "gesetze-im-internet",
+      "source_path": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
+      "document_type": "law",
+      "topic": "healthcare-law",
+      "topics": [
+        "healthcare-law"
+      ],
+      "created_at": "2026-06-28T08:50:48.554764+00:00",
+      "extra": {
+        "root_path": "data/raw/gesetze_im_internet",
+        "file_pattern": "**/*.pdf",
+        "document_type": "law",
+        "topic": "healthcare-law",
+        "file_name": "PUEG_RefE_Pflegereform_bf.pdf",
+        "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
+        "file_size_bytes": 1301360,
+        "suffix": ".pdf",
+        "pdf_metadata": {
+          "/Author": "Bundesministerium für Gesundheit (BMG); www.bundesgesundheitsministerium.de",
+          "/CreationDate": "D:20230315104937+01'00'",
+          "/Creator": "",
+          "/Keywords": "Referentenentwurf des Bundesministeriums für Gesundheit - Entwurf eines Gesetzes zur Unterstützung und Entlastung in der Pflege (Pflegeunterstützungs- und -entlastungsgesetz – PUEG) ; \"Bundesministerium für Gesundheit (BMG); www.bundesgesundheitsministerium.de\"; Gesetzte/Verordnungen",
+          "/ModDate": "D:20230320140306+01'00'",
+          "/Producer": "",
+          "/Subject": "Gesetzte/Verordnungen",
+          "/Title": "Referentenentwurf des Bundesministeriums für Gesundheit - Entwurf eines Gesetzes zur Unterstützung und Entlastung in der Pflege (Pflegeunterstützungs- und -entlastungsgesetz – PUEG) "
+        },
+        "page_count": 112,
+        "topics": [
+          "healthcare-law"
+        ],
+        "content_hash": "1839c6eee028aeaee409ddde017f93201023979237c9f9d8f9025e465916487f",
+        "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf"
+      }
+    }
+  },
+  {
+    "satellite_key": "7d1f92ec-ab5b-5bea-8e05-07911634270f",
+    "document_key": "b61bc03c-6064-53bc-8c53-723fc86d1e51",
+    "hash_diff": "944ce82fc8e35521281a7f588a7039b642d3746ebc2f0d87c1dbe6ae3ca1a898",
+    "loaded_at": "2026-07-01T17:45:28.301859+00:00",
+    "effective_from": "2026-07-01T17:45:28.301859+00:00",
+    "effective_to": "2026-07-01T17:45:28.302722+00:00",
+    "is_current": false,
+    "record_source": "lexcare-ai",
+    "payload": {
+      "source": "gesetze-im-internet",
+      "source_path": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
+      "document_type": "law",
+      "topic": "healthcare-law",
+      "topics": [
+        "healthcare-law"
+      ],
+      "created_at": "2026-06-28T10:30:16.266062+00:00",
+      "extra": {
+        "root_path": "data/raw/gesetze_im_internet",
+        "file_pattern": "**/*.pdf",
+        "document_type": "law",
+        "topic": "healthcare-law",
+        "file_name": "SGB_5.pdf",
+        "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
+        "file_size_bytes": 2658246,
+        "suffix": ".pdf",
+        "pdf_metadata": {
+          "/Creator": "Apache FOP Version 2.6",
+          "/Producer": "Apache FOP Version 2.6",
+          "/CreationDate": "D:20260611215033+02'00'"
+        },
+        "page_count": 568,
+        "topics": [
+          "healthcare-law"
+        ],
+        "content_hash": "d690b8c24e2c9d0d7e7f0709d9a5d23e6d1fef8fe5ce981b062235d38da77bd2",
+        "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf"
+      }
+    }
+  },
+  {
+    "satellite_key": "c3409ebd-fc48-59c4-ac91-186286f24224",
+    "document_key": "7956037b-e679-5bfa-ae40-95c491bdb1cc",
+    "hash_diff": "f90b02af5be45db44e7b67afe98e33e59f3b27221fa8becdaf353aed54dab2b8",
+    "loaded_at": "2026-07-01T17:45:28.302293+00:00",
+    "effective_from": "2026-07-01T17:45:28.302293+00:00",
+    "effective_to": "2026-07-01T17:45:28.303539+00:00",
+    "is_current": false,
+    "record_source": "lexcare-ai",
+    "payload": {
+      "source": "gesetze-im-internet",
+      "source_path": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
+      "document_type": "law",
+      "topic": "healthcare-law",
+      "topics": [
+        "healthcare-law"
+      ],
+      "created_at": "2026-06-28T08:50:50.656537+00:00",
+      "extra": {
+        "root_path": "data/raw/gesetze_im_internet",
+        "file_pattern": "**/*.pdf",
+        "document_type": "law",
+        "topic": "healthcare-law",
+        "file_name": "SGB_11.pdf",
+        "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
+        "file_size_bytes": 873576,
+        "suffix": ".pdf",
+        "pdf_metadata": {
+          "/Creator": "Apache FOP Version 2.6",
+          "/Producer": "Apache FOP Version 2.6",
+          "/CreationDate": "D:20260513215037+02'00'"
+        },
+        "page_count": 177,
+        "topics": [
+          "healthcare-law"
+        ],
+        "content_hash": "8b3d33a7123bba295f9037ad77fc2f6e561b694e9567b63caccba7d760d064d4",
+        "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf"
+      }
+    }
+  },
+  {
+    "satellite_key": "59206125-3dfa-5023-a316-b742cdc61104",
+    "document_key": "b61bc03c-6064-53bc-8c53-723fc86d1e51",
+    "hash_diff": "ad07e3e54a077542e5cb6f8ab9fd3a9486ae81f148d0e38baab52188056308c2",
+    "loaded_at": "2026-07-01T17:45:28.302722+00:00",
+    "effective_from": "2026-07-01T17:45:28.302722+00:00",
+    "effective_to": null,
+    "is_current": true,
+    "record_source": "lexcare-ai",
+    "payload": {
+      "source": "gesetze-im-internet",
+      "source_path": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
+      "document_type": "law",
+      "topic": "healthcare-law",
+      "topics": [
+        "healthcare-law"
+      ],
+      "created_at": "2026-06-28T08:50:57.572962+00:00",
+      "extra": {
+        "root_path": "data/raw/gesetze_im_internet",
+        "file_pattern": "**/*.pdf",
+        "document_type": "law",
+        "topic": "healthcare-law",
+        "file_name": "SGB_5.pdf",
+        "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf",
+        "file_size_bytes": 2658246,
+        "suffix": ".pdf",
+        "pdf_metadata": {
+          "/Creator": "Apache FOP Version 2.6",
+          "/Producer": "Apache FOP Version 2.6",
+          "/CreationDate": "D:20260611215033+02'00'"
+        },
+        "page_count": 568,
+        "topics": [
+          "healthcare-law"
+        ],
+        "content_hash": "d690b8c24e2c9d0d7e7f0709d9a5d23e6d1fef8fe5ce981b062235d38da77bd2",
+        "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_5.pdf"
+      }
+    }
+  },
+  {
+    "satellite_key": "7aa1cb28-c414-52b0-9fdd-e93e82ff0de5",
+    "document_key": "7956037b-e679-5bfa-ae40-95c491bdb1cc",
+    "hash_diff": "6807d2441c78915a3abb0971a3b852fe3a2eb31b2aabd424e5314c85ad481ae0",
+    "loaded_at": "2026-07-01T17:45:28.303539+00:00",
+    "effective_from": "2026-07-01T17:45:28.303539+00:00",
+    "effective_to": null,
+    "is_current": true,
+    "record_source": "lexcare-ai",
+    "payload": {
+      "source": "gesetze-im-internet",
+      "source_path": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
+      "document_type": "law",
+      "topic": "healthcare-law",
+      "topics": [
+        "healthcare-law"
+      ],
+      "created_at": "2026-06-28T10:30:09.267370+00:00",
+      "extra": {
+        "root_path": "data/raw/gesetze_im_internet",
+        "file_pattern": "**/*.pdf",
+        "document_type": "law",
+        "topic": "healthcare-law",
+        "file_name": "SGB_11.pdf",
+        "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf",
+        "file_size_bytes": 873576,
+        "suffix": ".pdf",
+        "pdf_metadata": {
+          "/Creator": "Apache FOP Version 2.6",
+          "/Producer": "Apache FOP Version 2.6",
+          "/CreationDate": "D:20260513215037+02'00'"
+        },
+        "page_count": 177,
+        "topics": [
+          "healthcare-law"
+        ],
+        "content_hash": "8b3d33a7123bba295f9037ad77fc2f6e561b694e9567b63caccba7d760d064d4",
+        "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/SGB_11.pdf"
+      }
+    }
+  },
+  {
+    "satellite_key": "20466c99-7601-5b5a-aad7-2188b214a97d",
+    "document_key": "105f3cb3-a3d5-5bc8-90fb-853b86735460",
+    "hash_diff": "db625f745381efd0b2f244fb01708c2076552b7c4abfba639107b8ea5404f2c1",
+    "loaded_at": "2026-07-01T17:45:28.304567+00:00",
+    "effective_from": "2026-07-01T17:45:28.304567+00:00",
+    "effective_to": null,
+    "is_current": true,
+    "record_source": "lexcare-ai",
+    "payload": {
+      "source": "gesetze-im-internet",
+      "source_path": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
+      "document_type": "law",
+      "topic": "healthcare-law",
+      "topics": [
+        "healthcare-law"
+      ],
+      "created_at": "2026-06-28T10:30:07.155261+00:00",
+      "extra": {
+        "root_path": "data/raw/gesetze_im_internet",
+        "file_pattern": "**/*.pdf",
+        "document_type": "law",
+        "topic": "healthcare-law",
+        "file_name": "PUEG_RefE_Pflegereform_bf.pdf",
+        "file_path": "/Users/rodrigue.lawson/VSCode Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf",
+        "file_size_bytes": 1301360,
+        "suffix": ".pdf",
+        "pdf_metadata": {
+          "/Author": "Bundesministerium für Gesundheit (BMG); www.bundesgesundheitsministerium.de",
+          "/CreationDate": "D:20230315104937+01'00'",
+          "/Creator": "",
+          "/Keywords": "Referentenentwurf des Bundesministeriums für Gesundheit - Entwurf eines Gesetzes zur Unterstützung und Entlastung in der Pflege (Pflegeunterstützungs- und -entlastungsgesetz – PUEG) ; \"Bundesministerium für Gesundheit (BMG); www.bundesgesundheitsministerium.de\"; Gesetzte/Verordnungen",
+          "/ModDate": "D:20230320140306+01'00'",
+          "/Producer": "",
+          "/Subject": "Gesetzte/Verordnungen",
+          "/Title": "Referentenentwurf des Bundesministeriums für Gesundheit - Entwurf eines Gesetzes zur Unterstützung und Entlastung in der Pflege (Pflegeunterstützungs- und -entlastungsgesetz – PUEG) "
+        },
+        "page_count": 112,
+        "topics": [
+          "healthcare-law"
+        ],
+        "content_hash": "1839c6eee028aeaee409ddde017f93201023979237c9f9d8f9025e465916487f",
+        "artifact_uri": "file:///Users/rodrigue.lawson/VSCode%20Projects/lexcare-ai/data/raw/gesetze_im_internet/PUEG_RefE_Pflegereform_bf.pdf"
+      }
+    }
+  }
+]
