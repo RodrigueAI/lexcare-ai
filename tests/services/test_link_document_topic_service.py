@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from app.domain.keys import WarehouseKeyFactory
 from app.domain.models import DocumentMetadata, StoredDocument
 from app.domain.warehouse import HubDocument, HubTopic, LinkDocumentTopic
+from app.domain.warehouse.keys import WarehouseKeyFactory
 from app.services.link_document_topic_service import LinkDocumentTopicService
 
 

@@ -15,6 +15,7 @@ from .warehouse import (
     HubTopicLookupRepositoryProtocol,
     HubTopicRepositoryProtocol,
     LinkDocumentTopicRepositoryProtocol,
+    SatelliteDocumentMetadataRepositoryProtocol,
 )
 
 __all__ = [
@@ -31,4 +32,5 @@ __all__ = [
     "IngestionIndexRepositoryProtocol",
     "LinkDocumentTopicRepositoryProtocol",
     "SourceRegistryProtocol",
+    "SatelliteDocumentMetadataRepositoryProtocol",
 ]

@@ -1,6 +1,7 @@
 # app/repositories/contracts/warehouse.py
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Protocol
 
 from app.domain.warehouse import (
@@ -8,6 +9,7 @@ from app.domain.warehouse import (
     HubSource,
     HubTopic,
     LinkDocumentTopic,
+    SatelliteDocumentMetadata,
 )
 
 
@@ -45,3 +47,22 @@ class LinkDocumentTopicRepositoryProtocol(Protocol):
     def find_by_document_key(self, document_key: str) -> list[LinkDocumentTopic]: ...
 
     def find_by_topic_key(self, topic_key: str) -> list[LinkDocumentTopic]: ...
+class SatelliteDocumentMetadataRepositoryProtocol(Protocol):
+
+    def load_all(self) -> list[SatelliteDocumentMetadata]: ...
+
+    def get(self, satellite_key: str) -> SatelliteDocumentMetadata | None: ...
+
+    def find_versions(self, document_key: str) -> list[SatelliteDocumentMetadata]: ...
+
+    def find_latest(self, document_key: str) -> SatelliteDocumentMetadata | None: ...
+
+    def find_as_of(
+        self,
+        document_key: str,
+        moment: datetime,
+    ) -> SatelliteDocumentMetadata | None: ...
+
+    def save(self, satellite: SatelliteDocumentMetadata) -> None: ...
+
+    def update(self, satellite: SatelliteDocumentMetadata) -> None: ...

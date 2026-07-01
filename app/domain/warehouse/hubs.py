@@ -1,4 +1,4 @@
-# app/domain/warehouse.py
+# app/domain/warehouse/hubs.py
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -29,12 +29,4 @@ class HubTopic:
     topic_key: str
     topic_id: str
     topic_name: str
-    created_at: datetime
-
-
-@dataclass(frozen=True)
-class LinkDocumentTopic:
-    link_key: str
-    document_key: str
-    topic_key: str
     created_at: datetime

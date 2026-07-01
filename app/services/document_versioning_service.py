@@ -6,7 +6,7 @@ from datetime import UTC, datetime
 
 from app.domain.models import StoredDocument
 from app.domain.versioning import DocumentVersion
-from app.repositories.contracts.versioning import DocumentVersionRepositoryProtocol
+from app.repositories.contracts import DocumentVersionRepositoryProtocol
 from app.repositories.document_version_repository import FileDocumentVersionRepository
 
 
