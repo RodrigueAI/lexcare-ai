@@ -9,6 +9,7 @@ from app.domain.warehouse import (
     HubSource,
     HubTopic,
     LinkDocumentTopic,
+    SatelliteDocumentContent,
     SatelliteDocumentMetadata,
 )
 
@@ -66,3 +67,35 @@ class SatelliteDocumentMetadataRepositoryProtocol(Protocol):
     def save(self, satellite: SatelliteDocumentMetadata) -> None: ...
 
     def update(self, satellite: SatelliteDocumentMetadata) -> None: ...
+
+
+class SatelliteDocumentContentRepositoryProtocol(Protocol):
+    def load_all(self) -> list[SatelliteDocumentContent]: ...
+
+    def get(self, satellite_key: str) -> SatelliteDocumentContent | None: ...
+
+    def find_versions(
+        self,
+        document_key: str,
+    ) -> list[SatelliteDocumentContent]: ...
+
+    def find_latest(
+        self,
+        document_key: str,
+    ) -> SatelliteDocumentContent | None: ...
+
+    def find_as_of(
+        self,
+        document_key: str,
+        moment: datetime,
+    ) -> SatelliteDocumentContent | None: ...
+
+    def save(
+        self,
+        satellite: SatelliteDocumentContent,
+    ) -> None: ...
+
+    def update(
+        self,
+        satellite: SatelliteDocumentContent,
+    ) -> None: ...

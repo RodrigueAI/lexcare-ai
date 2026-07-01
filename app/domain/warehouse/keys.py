@@ -50,12 +50,13 @@ class WarehouseKeyFactory:
         return cls.create_surrogate_key("link", f"{document_key}::{topic_key}")
 
     @classmethod
-    def create_satellite_metadata_key(
-        cls,
-        document_key: str,
-        hash_diff: str,
-    ) -> str:
-        return cls.create_surrogate_key(
-            "satellite_document_metadata",
-            f"{document_key}::{hash_diff}",
-        )
+    def create_satellite_key(cls, namespace: str, document_key: str, hash_diff: str) -> str:
+        return cls.create_surrogate_key(namespace, f"{document_key}::{hash_diff}")
+
+    @classmethod
+    def create_satellite_metadata_key(cls, document_key: str, hash_diff: str) -> str:
+        return cls.create_satellite_key("satellite_document_metadata", document_key, hash_diff)
+
+    @classmethod
+    def create_satellite_content_key(cls, document_key: str, hash_diff: str) -> str:
+        return cls.create_satellite_key("satellite_document_content", document_key, hash_diff)
