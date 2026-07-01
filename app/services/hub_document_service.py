@@ -5,8 +5,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from app.domain.keys import WarehouseKeyFactory
-from app.domain.warehouse import HubDocument
+from app.domain.warehouse import HubDocument, WarehouseKeyFactory
 from app.repositories.contracts.document import DocumentListRepositoryProtocol
 from app.repositories.contracts.warehouse import (
     HubDocumentRepositoryProtocol,

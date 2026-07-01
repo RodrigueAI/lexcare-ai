@@ -3,12 +3,8 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from app.domain.warehouse import (
-    HubDocument,
-    HubSource,
-    HubTopic,
-    LinkDocumentTopic,
-)
+from app.domain.warehouse.hubs import HubDocument, HubSource, HubTopic
+from app.domain.warehouse.links import LinkDocumentTopic
 
 
 class HubSourceLookupRepositoryProtocol(Protocol):

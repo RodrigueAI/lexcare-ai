@@ -3,9 +3,8 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from app.domain.keys import WarehouseKeyFactory
 from app.domain.models import StoredDocument
-from app.domain.warehouse import LinkDocumentTopic
+from app.domain.warehouse import LinkDocumentTopic, WarehouseKeyFactory
 from app.repositories.contracts.document import DocumentListRepositoryProtocol
 from app.repositories.contracts.warehouse import (
     HubDocumentLookupRepositoryProtocol,

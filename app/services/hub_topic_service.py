@@ -3,8 +3,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from app.domain.keys import WarehouseKeyFactory
-from app.domain.warehouse import HubTopic
+from app.domain.warehouse import HubTopic, WarehouseKeyFactory
 from app.repositories.contracts.source import SourceRegistryProtocol
 from app.repositories.contracts.warehouse import HubTopicRepositoryProtocol
 from app.repositories.hub_topic_repository import FileHubTopicRepository
